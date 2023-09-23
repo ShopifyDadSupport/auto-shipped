@@ -19,7 +19,7 @@ export default function PaginationApp() {
   const [showCancelMessage, setShowCancelMessage] = useState();
   useEffect(() => {
     // Fetch data from the API
-    fetch('https://chamonixsealapp.onrender.com/subscription/cancelledorder')
+    fetch('https://sealapp-kn3m.onrender.com/subscription/cancelledorder')
       .then(response => response.json())
       .then(data => setData(data))
       .catch(error => console.error('Error fetching data:', error));
@@ -32,7 +32,7 @@ export default function PaginationApp() {
 
 //   const handleCancel = (orderId) => {
 //     // Send a DELETE request to your backend API using Axios
-//     axios.post(`https://chamonixsealapp.onrender.com/subscription/order/${orderId}`)
+//     axios.post(`https://sealapp-kn3m.onrender.com/subscription/order/${orderId}`)
 //       .then(response => {
 //         // Remove the item from the data in state
 //         const updatedData = data.filter(item => item.subscription_order_id !== orderId);

@@ -4,7 +4,6 @@ import './usePagination';
 import './PaginationApp.css';
 
 let PageSize = 10;
-
 export default function SubscriptionUppcoming() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,7 +11,7 @@ export default function SubscriptionUppcoming() {
 
   useEffect(() => {
     // Fetch data from the API
-    fetch('https://chamonixsealapp.onrender.com/subscription/order')
+    fetch('https://sealapp-kn3m.onrender.com/subscription/order')
       .then(response => response.json())
       .then(data => setData(data))
       .catch(error => console.error('Error fetching data:', error));

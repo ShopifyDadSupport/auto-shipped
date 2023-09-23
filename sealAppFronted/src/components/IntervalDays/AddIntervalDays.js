@@ -12,7 +12,7 @@ function TagsInput() {
         localStorage.setItem("tempStoreName", window.location.hostname);
 
             // Fetch data from the API
-            fetch('https://chamonixsealapp.onrender.com/getadd/addIntervalDays')
+            fetch('https://sealapp-kn3m.onrender.com/getadd/addIntervalDays')
               .then(response => response.json())
               .then(data => setData(data.subscription_interval_days))
               .catch(error => console.error('Error fetching data:', error));
@@ -44,7 +44,7 @@ function TagsInput() {
         const removeTag = (tag, index) => {
             console.log("Removing tag:", tag);
             // setTags(tag);
-            axios.post('https://chamonixsealapp.onrender.com/remove/addIntervaldays', 
+            axios.post('https://sealapp-kn3m.onrender.com/remove/addIntervaldays', 
               { 
                 tag: tag,
                 url: currentURL
@@ -67,7 +67,7 @@ function TagsInput() {
         //     setTags([...tags, inputValue]);
         //     setInputValue('');
         // }
-        axios.post('https://chamonixsealapp.onrender.com/add/addIntervalDays', 
+        axios.post('https://sealapp-kn3m.onrender.com/add/addIntervalDays', 
         { 
             tag: inputValue,
             url: currentURL
