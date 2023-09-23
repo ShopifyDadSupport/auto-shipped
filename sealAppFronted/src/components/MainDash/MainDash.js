@@ -19,7 +19,7 @@ const MainDash = () => {
     
     localStorage.setItem('subscriptionToggleState', newValue);
 
-    axios.post('https://sealapp-kn3m.onrender.com/scriptrender/toggle', { isChecked: newValue })
+    axios.post('https://sealapp-6ptb.onrender.com/scriptrender/toggle', { isChecked: newValue })
       .then((response) => {
         console.log('Data sent successfully:', response.data);
       })

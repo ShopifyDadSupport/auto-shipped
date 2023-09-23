@@ -14,7 +14,7 @@ export default function PaginationApp() {
   const [showOrderDetails, setShowOrderDetails] = useState(null);
   useEffect(() => {
     // Fetch data from the API
-    fetch("https://sealapp-kn3m.onrender.com/subscription/order")
+    fetch("https://sealapp-6ptb.onrender.com/subscription/order")
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -46,7 +46,7 @@ export default function PaginationApp() {
     const date_with_time = `${updatedDate} ${formattedTime}`;
 
     // Send a DELETE request to your backend API using Axios
-    axios.post(`https://sealapp-kn3m.onrender.com/subscription/order/${orderId}`, {
+    axios.post(`https://sealapp-6ptb.onrender.com/subscription/order/${orderId}`, {
         cancellationDateTime: date_with_time,
       })
       .then(response => {

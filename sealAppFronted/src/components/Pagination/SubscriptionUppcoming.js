@@ -11,7 +11,7 @@ export default function SubscriptionUppcoming() {
 
   useEffect(() => {
     // Fetch data from the API
-    fetch('https://sealapp-kn3m.onrender.com/subscription/order')
+    fetch('https://sealapp-6ptb.onrender.com/subscription/order')
       .then(response => response.json())
       .then(data => setData(data))
       .catch(error => console.error('Error fetching data:', error));
