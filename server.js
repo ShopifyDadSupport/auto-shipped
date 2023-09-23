@@ -1460,7 +1460,7 @@ app.post('/send/visiter/data', (req, res) => {
   //   })
   // };
   
-app.post("send/portal/data",(req,res)=>{
+app.post("/send/portal/data",(req,res)=>{
   console.log("customer portal data:-",req.body);
   res.sendStatus(200);
 });
