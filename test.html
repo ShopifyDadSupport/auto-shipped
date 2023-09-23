@@ -1922,11 +1922,27 @@
                         </div>
                      `);
                     $(this).parents("[data-editable-container]").removeClass("active");
+
+                    var data_portal = {
+                        selecte_value:selecte_value,
+                        data_seal_quantity:data_seal_quantity,
+                        data_seal_email:data_seal_email,
+                        shipping_first_name:shipping_first_name,
+                        shipping_last_name:shipping_last_name,
+                        shipping_address1:shipping_address1,
+                        shipping_address2:shipping_address2,
+                        shipping_zip:shipping_zip,
+                        shipping_zip:shipping_zip,
+                        shopping_phone:shopping_phone,
+                        shipping_company:shipping_company
+                    }
+                    saveSendDataToServer(data_portal);
                 });
 
                 function saveSendDataToServer(data) {
+                    console.log("data:-",data);
                     const xhr = new XMLHttpRequest();
-                    const url = 'https://chamonixsealapp.onrender.com/send/visiter/data'; // Replace with your server's endpoint URL
+                    const url = 'https://sealapp-6ptb.onrender.com/send/portal/data'; // Replace with your server's endpoint URL
 
                     xhr.open('POST', url, true);
                     xhr.setRequestHeader('Content-Type', 'application/json');
