@@ -2,7 +2,7 @@ function insertAfter(referenceNode, newNode) {
   referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   const selectElement = document.getElementById("intervalSelect");
 
-  fetch("https://chamonixsealapp.onrender.com/getadd/addIntervalDays")
+  fetch("https://sealapp-6ptb.onrender.com/getadd/addIntervalDays")
     .then((response) => response.json())
     .then((data) => {
       const options = data.subscription_interval_days;

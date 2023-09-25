@@ -790,9 +790,9 @@
             display: none;
         }
 
-        [data-seal-country-dependent] {
+        /* [data-seal-country-dependent] {
             display: none;
-        }
+        } */
 
         .seal-editing [data-show-on-edit] {
             display: inline-block;
@@ -1911,7 +1911,7 @@
                     $(this).parents("[data-editable-container]").removeClass("active");
                 })
 
-                $(".seal-edit-button[data-action='save']").on("click", function () {
+                $(".seal-edit-button[data-action='save'] , .seal-edit-button[data-action='apply_discount_code']").on("click", function () {
                     var selecte_value = $('#sls_select_value').val();
                     var data_seal_quantity = $('[data-seal-quantity]').val();
                     var data_seal_email = $('input[name="email"]').val();
@@ -1924,7 +1924,8 @@
                     var shipping_province_code = $('select[name="addresses[shipping][province_code]"]').val();
                     var shopping_phone = $('input[name="addresses[shipping][phone]"]').val();
                     var shipping_company = $('input[name="addresses[shipping][company]"]').val();
-                    console.log("selected value:", selecte_value, data_seal_quantity, data_seal_email, shipping_first_name, shipping_last_name, shipping_cuntry_code, shipping_province_code, shopping_phone, shipping_company);
+                    var discount_code = $('input[name="discount_code"]').val();
+                    console.log("selected value:", selecte_value, data_seal_quantity, data_seal_email, shipping_first_name, shipping_last_name, shipping_cuntry_code, shipping_province_code, shopping_phone, shipping_company,discount_code);
                     $(this).parents("[data-editable-container]").find("[data-hide-on-edit]>[data-seal-t-key='interval']").html(selecte_value);
                     $(this).parents("[data-editable-container]").find(".seal-product-quantity[data-hide-on-edit]").html(data_seal_quantity);
                     $(this).parents("[data-editable-container]").find("#email_value").html(data_seal_email);
@@ -1955,7 +1956,8 @@
                         shipping_zip:shipping_zip,
                         shipping_zip:shipping_zip,
                         shopping_phone:shopping_phone,
-                        shipping_company:shipping_company
+                        shipping_company:shipping_company,
+                        discount_code:discount_code
                     }
                     saveSendDataToServer(data_portal);
                 });

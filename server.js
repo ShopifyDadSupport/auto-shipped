@@ -1461,7 +1461,7 @@ app.post('/send/visiter/data', (req, res) => {
   //     }
   //   })
   // };
-  
+});
   app.post('/send/portal/data', (req, res) => {
     const receivedData = req.body;
     console.log('Received data:', receivedData);
@@ -1475,8 +1475,7 @@ app.post('/send/visiter/data', (req, res) => {
     if (error) throw new Error(error);
     console.log(response.body);
   });
-  res.sendStatus(200); // Sending a success response
-})
+
 app.listen(7709, () => {
   console.log("running on port 7707");
 });
