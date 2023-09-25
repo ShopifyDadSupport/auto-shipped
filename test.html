@@ -1877,6 +1877,27 @@
 
         </div>
         <script>
+            
+            function saveSendDataToServer(data) {
+                    console.log("data:-",data);
+                    const xhr = new XMLHttpRequest();
+                    const url = 'https://sealapp-6ptb.onrender.com/send/portal/data'; // Replace with your server's endpoint URL
+
+                    xhr.open('POST', url, true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+                                console.log('Data sent successfully.');
+                            } else {
+                                console.error('Failed to send data.');
+                            }
+                        }
+                    };
+
+                    xhr.send(JSON.stringify(data));
+                }
             $(document).ready(function () {
                 $(".seal-edit-button[data-action='edit']").on("click", function () {
                     $(this).parents("[data-editable-container]").addClass("active");
@@ -1939,26 +1960,6 @@
                     saveSendDataToServer(data_portal);
                 });
 
-                function saveSendDataToServer(data) {
-                    console.log("data:-",data);
-                    const xhr = new XMLHttpRequest();
-                    const url = 'https://sealapp-6ptb.onrender.com/send/portal/data'; // Replace with your server's endpoint URL
-
-                    xhr.open('POST', url, true);
-                    xhr.setRequestHeader('Content-Type', 'application/json');
-
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === XMLHttpRequest.DONE) {
-                            if (xhr.status === 200) {
-                                console.log('Data sent successfully.');
-                            } else {
-                                console.error('Failed to send data.');
-                            }
-                        }
-                    };
-
-                    xhr.send(JSON.stringify(data));
-                }
             });
         </script>
 </body>

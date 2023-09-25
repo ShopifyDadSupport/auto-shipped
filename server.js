@@ -19,6 +19,7 @@ var cors = require("cors");
 const { json } = require("express");
 dotenv.config();
 const bodyParser = require("body-parser");
+const { captureRejectionSymbol } = require("events");
 const { SHOPIFY_API_KEY, SHOPIFY_API_SECRET } = process.env;
 const app = express();
 app.set("views", path.join(__dirname, "views"));
@@ -1218,6 +1219,7 @@ app.get('/subscriptionPortal/order', (req, res) => {
       res.status(500).send('Error reading file');
     } else {
       const subscription_order_id = JSON.parse(data).orderIdvalue;
+      console.log("subscription order id :- ", subscription_order_id);
       const query = `SELECT * FROM subscriptionorder WHERE subscription_order_id = '${subscription_order_id}'`;
 
       databaseData.query(query, (error, results) => {
