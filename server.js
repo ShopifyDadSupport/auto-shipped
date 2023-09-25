@@ -1397,71 +1397,71 @@ databaseData.connect(function (err) {
     "Connected! my sql  to node js ................................."
   );
 });
-var totalVisitors__temp = [];
-app.post('/send/visiter/data', (req, res) => {
-  const totalVisitors = parseInt(req.body.totalVisitors, 10);
-  const totalSessions = parseInt(req.body.totalSessions, 10);
-  const currentUrl = req.body.currentUrl;
+// var totalVisitors__temp = [];
+// app.post('/send/visiter/data', (req, res) => {
+//   const totalVisitors = parseInt(req.body.totalVisitors, 10);
+//   const totalSessions = parseInt(req.body.totalSessions, 10);
+//   const currentUrl = req.body.currentUrl;
 
-  console.log(totalSessions, totalVisitors, currentUrl)
-  /*================================================ commemnt local code =========================================== */
+//   console.log(totalSessions, totalVisitors, currentUrl)
+//   /*================================================ commemnt local code =========================================== */
 
-  // totalVisitors__temp.push(totalVisitors);
-  // const sum_totalVisitors = totalVisitors__temp.reduce((acc, currentValue) => acc + parseInt(currentValue), 0);
-  // console.log("Sum of the totalVisitors__temp:", sum_totalVisitors);
-  // console.log("sdkjasgdhgasjdhjj", totalVisitors, totalSessions, "totalVisitors__temp=", totalVisitors__temp);
-  // const query = 'SELECT COUNT(*) AS row_count FROM websitesession';
+//   // totalVisitors__temp.push(totalVisitors);
+//   // const sum_totalVisitors = totalVisitors__temp.reduce((acc, currentValue) => acc + parseInt(currentValue), 0);
+//   // console.log("Sum of the totalVisitors__temp:", sum_totalVisitors);
+//   // console.log("sdkjasgdhgasjdhjj", totalVisitors, totalSessions, "totalVisitors__temp=", totalVisitors__temp);
+//   // const query = 'SELECT COUNT(*) AS row_count FROM websitesession';
 
-  // // Execute the query
-  // databaseData.query(query, function (error, results, fields) {
-  //   if (error) throw error;
-  //   // Get the row count from the result
-  //   const rowCount = results[0].row_count;
-  //   if (rowCount === 0) {
-  //     const insertQuery = "INSERT INTO websitesession (id, totalVisitor,totalSession) VALUES (?, ?, ?)";
-  //     databaseData.query(insertQuery, [101, totalVisitors, totalSessions], (err, result) => {
-  //       if (err) {
-  //         console.error("Error inserting data:", err);
-  //         return;
-  //       }
-  //       console.log("Data inserted successfully!");
-  //       console.log("Inserted ID:", result.insertId);
-  //     });
-  //   } else if (totalVisitors && totalSessions) {
-  //     const updateQuery = 'UPDATE websitesession SET totalVisitor = ?, totalSession = totalSession + ? WHERE id = ?';
-  //     //const updateQuery = 'UPDATE websitesession SET totalVisitor = totalVisitor + ? WHERE id = ?';
-  //     // Execute the query
-  //     databaseData.query(updateQuery, [sum_totalVisitors, totalSessions, 101], (err, result) => {
-  //       if (err) throw err;
-  //       console.log("Rows updated totalVisitors and totalSession:", result.affectedRows);
-  //     })
-  //   }
+//   // // Execute the query
+//   // databaseData.query(query, function (error, results, fields) {
+//   //   if (error) throw error;
+//   //   // Get the row count from the result
+//   //   const rowCount = results[0].row_count;
+//   //   if (rowCount === 0) {
+//   //     const insertQuery = "INSERT INTO websitesession (id, totalVisitor,totalSession) VALUES (?, ?, ?)";
+//   //     databaseData.query(insertQuery, [101, totalVisitors, totalSessions], (err, result) => {
+//   //       if (err) {
+//   //         console.error("Error inserting data:", err);
+//   //         return;
+//   //       }
+//   //       console.log("Data inserted successfully!");
+//   //       console.log("Inserted ID:", result.insertId);
+//   //     });
+//   //   } else if (totalVisitors && totalSessions) {
+//   //     const updateQuery = 'UPDATE websitesession SET totalVisitor = ?, totalSession = totalSession + ? WHERE id = ?';
+//   //     //const updateQuery = 'UPDATE websitesession SET totalVisitor = totalVisitor + ? WHERE id = ?';
+//   //     // Execute the query
+//   //     databaseData.query(updateQuery, [sum_totalVisitors, totalSessions, 101], (err, result) => {
+//   //       if (err) throw err;
+//   //       console.log("Rows updated totalVisitors and totalSession:", result.affectedRows);
+//   //     })
+//   //   }
 
-  //   console.log("Row count:", rowCount);
-  // });
+//   //   console.log("Row count:", rowCount);
+//   // });
 
 
-  /*================================================ commemnt local code =========================================== */
-  // var options = {
-  //   'method': 'POST',
-  //   'url': 'https://api.unimedcrm.com/WebApi/V2/WShopify_Visitor_Log.asmx/AddVisitor',
-  //   'headers': {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify({
-  //     "AddVisitor": {
-  //       "Visitor": totalVisitors,
-  //       "Session": totalSessions,
-  //       "SaleSource": currentUrl
-  //     },
-  //     "requestContainer": {
-  //       "TestMode": "false",
-  //       "AccessToken": "Unimed",
-  //       "Hashkey": "X396xNwnY8"
-  //     }
-  //   })
-  // };
-});
+//   /*================================================ commemnt local code =========================================== */
+//   // var options = {
+//   //   'method': 'POST',
+//   //   'url': 'https://api.unimedcrm.com/WebApi/V2/WShopify_Visitor_Log.asmx/AddVisitor',
+//   //   'headers': {
+//   //     'Content-Type': 'application/json'
+//   //   },
+//   //   body: JSON.stringify({
+//   //     "AddVisitor": {
+//   //       "Visitor": totalVisitors,
+//   //       "Session": totalSessions,
+//   //       "SaleSource": currentUrl
+//   //     },
+//   //     "requestContainer": {
+//   //       "TestMode": "false",
+//   //       "AccessToken": "Unimed",
+//   //       "Hashkey": "X396xNwnY8"
+//   //     }
+//   //   })
+//   // };
+// });
   app.post('/send/portal/data', (req, res) => {
     const receivedData = req.body;
     console.log('Received data:', receivedData);
@@ -1471,10 +1471,10 @@ app.post('/send/visiter/data', (req, res) => {
     res.send('Data received successfully!');
 });
 
-  request(options, function (error, response) {
-    if (error) throw new Error(error);
-    console.log(response.body);
-  });
+  // request(options, function (error, response) {
+  //   if (error) throw new Error(error);
+  //   console.log(response.body);
+  // });
 
 app.listen(7709, () => {
   console.log("running on port 7707");
