@@ -1460,9 +1460,13 @@ app.post('/send/visiter/data', (req, res) => {
   //   })
   // };
   
-app.post("/send/portal/data",(req,res)=>{
-  console.log("customer portal data:-",req.body);
-  res.sendStatus(200);
+  app.post('/send/portal/data', (req, res) => {
+    const receivedData = req.body;
+    console.log('Received data:', receivedData);
+    // Process the receivedData here as needed
+
+    // Send a response back to the client
+    res.send('Data received successfully!');
 });
 
   request(options, function (error, response) {
