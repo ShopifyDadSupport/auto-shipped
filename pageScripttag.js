@@ -1,7 +1,7 @@
 
 if (window.location.pathname === '/pages/portalsubscription') {
   const fetchData = async () => {
-             
+
     try {
       const response = await fetch('https://sealapp-6ptb.onrender.com/subscriptionPortal/order');
       const data = await response.json();
@@ -1414,8 +1414,7 @@ if (window.location.pathname === '/pages/portalsubscription') {
                         <div data-show-on-edit="">
                             <span data-seal-t="overview_interval_label">Repeats every </span>
                             <select class="sls-select replaced" name="interval" id="sls_select_value">
-                                <option data-seal-t-key="interval" data-seal-t-value="${entry.subscription_interval_days}" value="${entry.subscription_interval_days}"
-                                    selected="">${entry.subscription_interval_days}</option>
+                               
                             </select>
                         </div>
 
@@ -1585,7 +1584,7 @@ if (window.location.pathname === '/pages/portalsubscription') {
                             <span data-hide-on-edit="" id="email_value">${entry.subscription_customer_email}</span>
                         </div>
                         <span data-show-on-edit="">
-                            <input name="email" class="seal-input" value="wdlewers2@gmail.com" type="text">
+                            <input name="email" class="seal-input" value="${entry.subscription_customer_email}" type="text">
                         </span>
 
                     </div>
@@ -1901,38 +1900,38 @@ if (window.location.pathname === '/pages/portalsubscription') {
       `;
 
 
-            $(document).ready(function () {
-                $(".seal-edit-button[data-action='edit']").on("click", function () {
-                    $(this).parents("[data-editable-container]").addClass("active");
-                    $(this).parents(".seal-customer-portal-shipping-card").find("#seal-editable-modal-overlay").show();
-                });
-                $(".seal-edit-button[data-action='cancel']").on("click", function () {
-                    $(this).parents("[data-editable-container]").removeClass("active");
-                });
-                $(".close_model").click(function () {
-                    $("#seal-editable-modal-overlay").hide();
-                    $(this).parents("[data-editable-container]").removeClass("active");
-                })
+        $(document).ready(function () {
+          $(".seal-edit-button[data-action='edit']").on("click", function () {
+            $(this).parents("[data-editable-container]").addClass("active");
+            $(this).parents(".seal-customer-portal-shipping-card").find("#seal-editable-modal-overlay").show();
+          });
+          $(".seal-edit-button[data-action='cancel']").on("click", function () {
+            $(this).parents("[data-editable-container]").removeClass("active");
+          });
+          $(".close_model").click(function () {
+            $("#seal-editable-modal-overlay").hide();
+            $(this).parents("[data-editable-container]").removeClass("active");
+          })
 
-                $(".seal-edit-button[data-action='save'] , .seal-edit-button[data-action='apply_discount_code']").on("click", function () {
-                    var selecte_value = $('#sls_select_value').val();
-                    var data_seal_quantity = $('[data-seal-quantity]').val();
-                    var data_seal_email = $('input[name="email"]').val();
-                    var shipping_first_name = $('input[name="addresses[shipping][first_name]"]').val();
-                    var shipping_last_name = $('input[name="addresses[shipping][last_name]"]').val();
-                    var shipping_address1 = $('input[name="addresses[shipping][address1]"]').val();
-                    var shipping_address2 = $('input[name="addresses[shipping][address2]"]').val();
-                    var shipping_zip = $('input[name="addresses[shipping][city]"]').val();
-                    var shipping_cuntry_code = $('select[name="addresses[shipping][country_code]"]').val();
-                    var shipping_province_code = $('select[name="addresses[shipping][province_code]"]').val();
-                    var shopping_phone = $('input[name="addresses[shipping][phone]"]').val();
-                    var shipping_company = $('input[name="addresses[shipping][company]"]').val();
-                    var discount_code = $('input[name="discount_code"]').val();
-                    console.log("selected value:", selecte_value, data_seal_quantity, data_seal_email, shipping_first_name, shipping_last_name, shipping_cuntry_code, shipping_province_code, shopping_phone, shipping_company,discount_code);
-                    $(this).parents("[data-editable-container]").find("[data-hide-on-edit]>[data-seal-t-key='interval']").html(selecte_value);
-                    $(this).parents("[data-editable-container]").find(".seal-product-quantity[data-hide-on-edit]").html(data_seal_quantity);
-                    $(this).parents("[data-editable-container]").find("#email_value").html(data_seal_email);
-                    $(this).parents("[data-editable-container]").find('.seal-customer-portal-shipping-card_info[shipping-info]').html(`
+          $(".seal-edit-button[data-action='save'] , .seal-edit-button[data-action='apply_discount_code']").on("click", function () {
+            var selecte_value = $('#sls_select_value').val();
+            var data_seal_quantity = $('[data-seal-quantity]').val();
+            var data_seal_email = $('input[name="email"]').val();
+            var shipping_first_name = $('input[name="addresses[shipping][first_name]"]').val();
+            var shipping_last_name = $('input[name="addresses[shipping][last_name]"]').val();
+            var shipping_address1 = $('input[name="addresses[shipping][address1]"]').val();
+            var shipping_address2 = $('input[name="addresses[shipping][address2]"]').val();
+            var shipping_zip = $('input[name="addresses[shipping][city]"]').val();
+            var shipping_cuntry_code = $('select[name="addresses[shipping][country_code]"]').val();
+            var shipping_province_code = $('select[name="addresses[shipping][province_code]"]').val();
+            var shopping_phone = $('input[name="addresses[shipping][phone]"]').val();
+            var shipping_company = $('input[name="addresses[shipping][company]"]').val();
+            var discount_code = $('input[name="discount_code"]').val();
+            console.log("selected value:", selecte_value, data_seal_quantity, data_seal_email, shipping_first_name, shipping_last_name, shipping_cuntry_code, shipping_province_code, shopping_phone, shipping_company, discount_code);
+            $(this).parents("[data-editable-container]").find("[data-hide-on-edit]>[data-seal-t-key='interval']").html(selecte_value);
+            $(this).parents("[data-editable-container]").find(".seal-product-quantity[data-hide-on-edit]").html(data_seal_quantity);
+            $(this).parents("[data-editable-container]").find("#email_value").html(data_seal_email);
+            $(this).parents("[data-editable-container]").find('.seal-customer-portal-shipping-card_info[shipping-info]').html(`
                        <div>
                             ${shipping_first_name} ${shipping_last_name}
                        </div>
@@ -1946,46 +1945,64 @@ if (window.location.pathname === '/pages/portalsubscription') {
                             ${shipping_cuntry_code} 
                         </div>
                      `);
-                    $(this).parents("[data-editable-container]").removeClass("active");
+            $(this).parents("[data-editable-container]").removeClass("active");
 
-                    var data_portal = {
-                        selecte_value:selecte_value,
-                        data_seal_quantity:data_seal_quantity,
-                        data_seal_email:data_seal_email,
-                        shipping_first_name:shipping_first_name,
-                        shipping_last_name:shipping_last_name,
-                        shipping_address1:shipping_address1,
-                        shipping_address2:shipping_address2,
-                        shipping_zip:shipping_zip,
-                        shipping_zip:shipping_zip,
-                        shopping_phone:shopping_phone,
-                        shipping_company:shipping_company,
-                        discount_code:discount_code
-                    }
-                    saveSendDataToServer(data_portal);
-                });
-                 function saveSendDataToServer(data) {
-                    console.log("data:-",data);
-                    const xhr = new XMLHttpRequest();
-                    const url = 'https://sealapp-6ptb.onrender.com/send/portal/data'; // Replace with your server's endpoint URL
+            var data_portal = {
+              subscription_order_id:entry.subscription_order_id,
+              selecte_value: selecte_value,
+              data_seal_quantity: data_seal_quantity,
+              data_seal_email: data_seal_email,
+              shipping_first_name: shipping_first_name,
+              shipping_last_name: shipping_last_name,
+              shipping_address1: shipping_address1,
+              shipping_address2: shipping_address2,
+              shipping_zip: shipping_zip,
+              shipping_zip: shipping_zip,
+              shopping_phone: shopping_phone,
+              shipping_company: shipping_company,
+              discount_code: discount_code
+            }
+            saveSendDataToServer(data_portal);
+          });
+          function saveSendDataToServer(data) {
+            console.log("data:-", data);
+            const xhr = new XMLHttpRequest();
+            const url = 'https://sealapp-6ptb.onrender.com/send/portal/data'; // Replace with your server's endpoint URL
 
-                    xhr.open('POST', url, true);
-                    xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
 
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === XMLHttpRequest.DONE) {
-                            if (xhr.status === 200) {
-                                console.log('Data sent successfully.');
-                            } else {
-                                console.error('Failed to send data.');
-                            }
-                        }
-                    };
-
-                    xhr.send(JSON.stringify(data));
+            xhr.onreadystatechange = function () {
+              if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                  console.log('Data sent successfully.');
+                } else {
+                  console.error('Failed to send data.');
                 }
+              }
+            };
 
-            });  
+            xhr.send(JSON.stringify(data));
+          }
+
+        });
+        fetch('https://sealapp-6ptb.onrender.com/getadd/addIntervalDays')
+          .then(response => response.json())
+          .then(data => {
+            console.log(data.subscription_interval_days); // Log the response to see its structure
+
+            // const intervalSelect1 = document.getElementById('sls_select_value');
+           var interval__days_value = data.subscription_interval_days;
+            const intervalSelect1 = document.getElementById('sls_select_value');
+
+            for (const interval of interval__days_value) {
+              const option = document.createElement('option');
+              option.value = interval;
+              option.textContent = interval;
+              intervalSelect1.appendChild(option);
+            }
+          })
+          .catch(error => console.error('Error fetching data:', error));
       });
 
     } catch (error) {

@@ -1463,8 +1463,22 @@ databaseData.connect(function (err) {
 //   // };
 // });
   app.post('/send/portal/data', (req, res) => {
-    const receivedData = req.body;
-    console.log('Received data:', receivedData);
+    const receivedData = JSON.parse(req.body);
+     const subscription_order_id = receivedData.subscription_order_id;
+     const selecte_value = receivedData.selecte_value;
+     const data_seal_quantity = receivedData.data_seal_quantity;
+     const data_seal_email = receivedData.data_seal_email;
+     const shipping_first_name = receivedData.shippingAddress_first_name;
+     const shipping_last_name = receivedData.shippingAddress_last_name;
+     const shipping_address1 = receivedData.shipping_address1;
+     const shipping_address2 = receivedData.shipping_address2;
+     const shipping_zip = receivedData.shippingAddress_zip;
+     const shopping_phone = receivedData.shopping_phone;
+     const shipping_company = receivedData.shipping_company; 
+     const  discount_code = receivedData.discount_code;
+
+  
+    console.log('Received data:', subscription_order_id,selecte_value,data_seal_quantity,data_seal_email,shipping_first_name,shipping_last_name,shipping_address1,shipping_address2,shipping_zip,shopping_phone,shipping_company,discount_code);
     // Process the receivedData here as needed
 
     // Send a response back to the client
