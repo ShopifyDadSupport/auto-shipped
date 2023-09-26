@@ -1463,7 +1463,7 @@ databaseData.connect(function (err) {
 //   // };
 // });
   app.post('/send/portal/data', (req, res) => {
-    const receivedData = JSON.parse(req.body);
+    const receivedData = req.body
      const subscription_order_id = receivedData.subscription_order_id;
      const selecte_value = receivedData.selecte_value;
      const data_seal_quantity = receivedData.data_seal_quantity;
