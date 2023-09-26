@@ -1480,7 +1480,22 @@ databaseData.connect(function (err) {
   
     console.log('Received data:', subscription_order_id,selecte_value,data_seal_quantity,data_seal_email,shipping_first_name,shipping_last_name,shipping_address1,shipping_address2,shipping_zip,shopping_phone,shipping_company,discount_code);
     // Process the receivedData here as needed
+    const updateQuery =
+      "UPDATE subscriptionorder SET subscription_interval_days = ?, subscription_customer_email = ?, subscription_product_Quantity = ?, subscriptionshipping_address_first_name = ?, subscriptionshipping_shippingAddress_last_name = ?, subscriptionshipping_shippingAddress_address1 = ?, subscriptionshippingAddress_zip = ? WHERE subscription_order_id = ?";
 
+    databaseData.query(
+      updateQuery,
+      [selecte_value, data_seal_email, data_seal_quantity, shipping_first_name, shipping_last_name, shipping_address1, shipping_zip, subscription_order_id],
+      (err, result) => {
+        if (err) {
+          console.error("Error updating data:", err);
+          return;
+        }
+
+        console.log("Data updated successfully!");
+        console.log("Affected rows:", result.affectedRows);
+      }
+    );
     // Send a response back to the client
     res.send('Data received successfully!');
 });
