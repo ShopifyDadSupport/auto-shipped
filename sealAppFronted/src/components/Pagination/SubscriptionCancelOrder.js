@@ -9,6 +9,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Pagination from './Pagination';
 import './usePagination';
 import './PaginationApp.css';
+import { Dna } from 'react-loader-spinner';
 // import axios from 'axios';
 let PageSize = 8;
 
@@ -17,12 +18,19 @@ export default function PaginationApp() {
   const [searchTerm, setSearchTerm] = useState('');
   const [data, setData] = useState([]); // State to hold the fetched data
   const [showCancelMessage, setShowCancelMessage] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     // Fetch data from the API
     fetch('https://sealapp-6ptb.onrender.com/subscription/cancelledorder')
       .then(response => response.json())
-      .then(data => setData(data))
-      .catch(error => console.error('Error fetching data:', error));
+      .then(data => {
+        setData(data);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        setIsLoading(false);
+        console.error('Error fetching data:', error)
+      });
   }, []);
 
   const handleSearch = (event) => {
@@ -30,20 +38,20 @@ export default function PaginationApp() {
     setCurrentPage(1);
   };
 
-//   const handleCancel = (orderId) => {
-//     // Send a DELETE request to your backend API using Axios
-//     axios.post(`https://sealapp-6ptb.onrender.com/subscription/order/${orderId}`)
-//       .then(response => {
-//         // Remove the item from the data in state
-//         const updatedData = data.filter(item => item.subscription_order_id !== orderId);
-//         setData(updatedData);
-//         setShowCancelMessage(response.data.message);
-//         console.log(response.data.message);
-//       })
-//       .catch(error => console.error('Error deleting data:', error));
-//   };
-  
-  
+  //   const handleCancel = (orderId) => {
+  //     // Send a DELETE request to your backend API using Axios
+  //     axios.post(`https://sealapp-6ptb.onrender.com/subscription/order/${orderId}`)
+  //       .then(response => {
+  //         // Remove the item from the data in state
+  //         const updatedData = data.filter(item => item.subscription_order_id !== orderId);
+  //         setData(updatedData);
+  //         setShowCancelMessage(response.data.message);
+  //         console.log(response.data.message);
+  //       })
+  //       .catch(error => console.error('Error deleting data:', error));
+  //   };
+
+
 
   const filteredData = useMemo(() => {
     return data.filter(
@@ -73,7 +81,7 @@ export default function PaginationApp() {
       </div>
       <table className='SubscriptionCancelOrder'>
         <thead>
-        <tr>
+          <tr>
             <th>Order name</th>
             <th>Customer Name</th>
             <th>Customer Email</th>
@@ -83,34 +91,48 @@ export default function PaginationApp() {
             <th>Total Price</th>
             <th>Status</th>
             <th>Cancel Date</th>
-          </tr> 
+          </tr>
         </thead>
         <tbody>
-          {currentTableData.length > 0 ? (
-            currentTableData.map((item) => (
-              <tr key={item.id}>
-                <td>{item.subscription_order_name}</td>
-                <td>{item.subscription_customer_name}</td>
-                <td>{item.subscription_customer_email}</td>
-                {/* <td>{formatDate(item.create_order_date)}</td> */}
-                <td>{item.create_order_date}</td>
-                <td>{item.subscription_order_id}</td>
-                {/* <td>{formatDate(item.Next_Shipment_Date)}</td> */}
-                <td>{item.Next_Shipment_Date}</td>
-                <td>{item.subscription_total_price}</td>
-                <td>{item.Status}</td>
-                <td className='subscription_cancel_date'>{item.subscription_cancel_date}</td>
-              </tr>
-
-            ))
-          ) : (
-            <tr>
-              <td colSpan="9" className="text-center">
-                No results found.
-              </td>
-            </tr>
+          {isLoading && (
+            <Dna
+              visible={true}
+              height={80}
+              width={80}
+              ariaLabel="dna-loading"
+              wrapperStyle={{}}
+              wrapperClass="dna-wrapper"
+            />
           )}
-        </tbody>    
+          {!isLoading && (
+            <>
+              {currentTableData.length > 0 ? (
+                currentTableData.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.subscription_order_name}</td>
+                    <td>{item.subscription_customer_name}</td>
+                    <td>{item.subscription_customer_email}</td>
+                    {/* <td>{formatDate(item.create_order_date)}</td> */}
+                    <td>{item.create_order_date}</td>
+                    <td>{item.subscription_order_id}</td>
+                    {/* <td>{formatDate(item.Next_Shipment_Date)}</td> */}
+                    <td>{item.Next_Shipment_Date}</td>
+                    <td>{item.subscription_total_price}</td>
+                    <td>{item.Status}</td>
+                    <td className='subscription_cancel_date'>{item.subscription_cancel_date}</td>
+                  </tr>
+
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="9" className="text-center">
+                    No results found.
+                  </td>
+                </tr>
+              )}
+            </>
+          )}
+        </tbody>
       </table>
       <Pagination
         className="pagination-bar"

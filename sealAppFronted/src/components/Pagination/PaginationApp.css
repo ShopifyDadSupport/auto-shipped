@@ -12,7 +12,15 @@ thead tr th {
     color: #fff;
     background-color: #343a40;
 }
-
+tbody {
+    position: relative;
+}
+svg.dna-wrapper {
+    position: absolute;
+    top: 300px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 tbody tr:nth-child(even) {
 	background-color: #fafafa;
 }
@@ -40,7 +48,10 @@ td {
     height: 100vh !important;
     width: 100% !important;
 }
-
+.Toastify {
+    font-size: 18px;
+    font-weight: bold;
+}
 .delete__order{
     background-color: red;
     border: none;

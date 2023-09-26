@@ -1,31 +1,33 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import Pagination from './Pagination';
-import './usePagination';
-import './PaginationApp.css';
+import Pagination from './Pagination'; // Assuming you have this component
+import { Dna } from 'react-loader-spinner'; // Assuming you have this component
+import './PaginationApp.css'; // Assuming this is for styling
 
-let PageSize = 10;
-export default function SubscriptionUppcoming() {
+const PageSize = 10;
+
+export default function SubscriptionUpcoming() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [data, setData] = useState([]); // State to hold the fetched data
+  const [isLoading, setIsLoading] = useState(true); // New state for loading indicator
 
   useEffect(() => {
-    // Fetch data from the API
     fetch('https://sealapp-6ptb.onrender.com/subscription/order')
       .then(response => response.json())
-      .then(data => setData(data))
-      .catch(error => console.error('Error fetching data:', error));
+      .then(data => {
+        setData(data);
+        setIsLoading(false); // Set isLoading to false when data is loaded
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setIsLoading(false); // Set isLoading to false in case of an error
+      });
   }, []);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
     setCurrentPage(1);
   };
-
-  // const formatDate = (dateString) => {
-  //   const date = new Date(dateString);
-  //   return `${date.toLocaleDateString('en-US')} ${date.toLocaleTimeString('en-US')}`;
-  // };
 
   const filteredData = useMemo(() => {
     return data.filter(
@@ -45,52 +47,68 @@ export default function SubscriptionUppcoming() {
 
   return (
     <>
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={handleSearch}
+      <div>
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Order name</th>
+              <th>Customer Name</th>
+              <th>Customer Email</th>
+              <th>Next Shipment Date</th>
+              <th>Total Price</th>
+            </tr>
+          </thead>
+            <tbody>
+            {isLoading && (
+            <Dna
+              visible={true}
+              height={80}
+              width={80}
+              ariaLabel="dna-loading"
+              wrapperStyle={{}}
+              wrapperClass="dna-wrapper"
+            />
+          )}
+          {!isLoading && (
+            <>
+              {currentTableData.length > 0 ? (
+                currentTableData.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.subscription_order_name}</td>
+                    <td>{item.subscription_customer_name}</td>
+                    <td>{item.subscription_customer_email}</td>
+                    <td>{item.Next_Shipment_Date}</td>
+                    <td>{item.subscription_total_price}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" className="text-center">
+                    No results found.
+                  </td>
+                </tr>
+              )}
+              </>
+              )}
+            </tbody>
+        </table>
+        <Pagination
+          className="pagination-bar"
+          currentPage={currentPage}
+          totalCount={filteredData.length}
+          pageSize={PageSize}
+          onPageChange={(page) => setCurrentPage(page)}
         />
       </div>
-      <table>
-        <thead>
-        <tr>
-            <th>Order name</th>
-            <th>Customer Name</th>
-            <th>Customer Email</th>
-            <th>NextShipment Date</th>
-            <th>Total Price</th>
-          </tr> 
-        </thead>
-        <tbody>
-          {currentTableData.length > 0 ? (
-            currentTableData.map((item) => (
-              <tr key={item.id}>
-                <td>{item.subscription_order_name}</td>
-                <td>{item.subscription_customer_name}</td>
-                <td>{item.subscription_customer_email}</td>
-                {/* <td>{formatDate(item.Next_Shipment_Date)}</td> */}
-                <td>{item.Next_Shipment_Date}</td>
-                <td>{item.subscription_total_price}</td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="9" className="text-center">
-                No results found.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-      <Pagination
-        className="pagination-bar"
-        currentPage={currentPage}
-        totalCount={filteredData.length}
-        pageSize={PageSize}
-        onPageChange={(page) => setCurrentPage(page)}
-      />
+
     </>
   );
 }

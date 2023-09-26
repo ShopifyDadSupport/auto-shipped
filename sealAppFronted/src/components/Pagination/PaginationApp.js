@@ -4,7 +4,9 @@ import "./usePagination";
 import "./PaginationApp.css";
 import axios from "axios";
 import OrderDetails from "./OrderDetails";
-
+import { Dna } from 'react-loader-spinner'; 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 let PageSize = 8;
 export default function PaginationApp() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -12,12 +14,20 @@ export default function PaginationApp() {
   const [data, setData] = useState([]); // State to hold the fetched data
   const [showCancelMessage, setShowCancelMessage] = useState();
   const [showOrderDetails, setShowOrderDetails] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  
   useEffect(() => {
     // Fetch data from the API
     fetch("https://sealapp-6ptb.onrender.com/subscription/order")
       .then((response) => response.json())
-      .then((data) => setData(data))
-      .catch((error) => console.error("Error fetching data:", error));
+      .then((data) => {
+        setData(data)
+        setIsLoading(false); 
+       })
+      .catch((error) => {
+        setIsLoading(false);
+        console.error("Error fetching data:", error)
+       });
   }, []);
 
   const handleSearch = (event) => {
@@ -54,6 +64,16 @@ export default function PaginationApp() {
         const updatedData = data.filter(item => item.subscription_order_id !== orderId);
         setData(updatedData);
         setShowCancelMessage(response.data.message);
+        toast.success('cancel successfully...', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
         console.log(response.data.message);
       })
       .then((response) => {
@@ -113,6 +133,18 @@ export default function PaginationApp() {
           </tr>
         </thead>
         <tbody>
+           {isLoading && (
+            <Dna
+              visible={true}
+              height={80}
+              width={80}
+              ariaLabel="dna-loading"
+              wrapperStyle={{}}
+              wrapperClass="dna-wrapper"
+            />
+          )}
+          {!isLoading && (
+            <>
           {currentTableData.length > 0 ? (
             currentTableData.map((item) => (
               <tr key={item.id}>
@@ -165,6 +197,8 @@ export default function PaginationApp() {
               </td>
             </tr>
           )}
+        </>
+          )}
         </tbody>
       </table>
       {showOrderDetails && (
@@ -182,6 +216,18 @@ export default function PaginationApp() {
           onPageChange={(page) => setCurrentPage(page)}
         />
       )}
+      <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="dark"
+      />
     </>
   );
 }

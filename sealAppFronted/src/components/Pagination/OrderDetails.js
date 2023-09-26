@@ -2,12 +2,25 @@
 import {React,useState} from "react";
 import axios from "axios";
 import Clipboard from "./Clipboard";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function OrderDetails({ orderData, onClose }) {
+  
  var dynamicSubscriptionOrderUrl = `https://admin.shopify.com/store/genucel105/orders/${orderData.subscription_order_id}`;
  var SubscriptionOrderId = orderData.subscription_order_id;
   const subscription_order_id = orderData.subscription_order_id;
   const Subscription_email_id = orderData.subscription_customer_email;
   function Copyportal() { // Copy the selected text to clipboard
+    toast.success('copy successfully...', {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
     console.log("order id:",orderData.subscription_order_id);
     console.log(orderData.id)
     axios
@@ -40,6 +53,7 @@ export default function OrderDetails({ orderData, onClose }) {
   }
 
   return (
+    <>
     <div className="order-details">
       <div className="order_details_container">
         <div className="order__details_top">
@@ -205,5 +219,18 @@ export default function OrderDetails({ orderData, onClose }) {
         <li>Cancel Date: {orderData.subscription_cancel_date}</li>
       </ul> */}
     </div>
+    <ToastContainer
+    position="top-right"
+    autoClose={5000}
+    hideProgressBar={false}
+    newestOnTop={false}
+    closeOnClick
+    rtl={false}
+    pauseOnFocusLoss
+    draggable
+    pauseOnHover
+    theme="dark"
+  />
+    </>
   );
 }
