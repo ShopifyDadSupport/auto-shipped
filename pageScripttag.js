@@ -1957,7 +1957,6 @@ if (window.location.pathname === '/pages/portalsubscription') {
               shipping_address1: shipping_address1,
               shipping_address2: shipping_address2,
               shipping_zip: shipping_zip,
-              shipping_zip: shipping_zip,
               shopping_phone: shopping_phone,
               shipping_company: shipping_company,
               discount_code: discount_code

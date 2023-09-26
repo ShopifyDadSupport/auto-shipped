@@ -1468,11 +1468,11 @@ databaseData.connect(function (err) {
      const selecte_value = receivedData.selecte_value;
      const data_seal_quantity = receivedData.data_seal_quantity;
      const data_seal_email = receivedData.data_seal_email;
-     const shipping_first_name = receivedData.shippingAddress_first_name;
-     const shipping_last_name = receivedData.shippingAddress_last_name;
+     const shipping_first_name = receivedData.shipping_first_name;
+     const shipping_last_name = receivedData.shipping_last_name;
      const shipping_address1 = receivedData.shipping_address1;
      const shipping_address2 = receivedData.shipping_address2;
-     const shipping_zip = receivedData.shippingAddress_zip;
+     const shipping_zip = receivedData.shipping_zip;
      const shopping_phone = receivedData.shopping_phone;
      const shipping_company = receivedData.shipping_company; 
      const  discount_code = receivedData.discount_code;
