@@ -21,6 +21,14 @@
     font-weight: 800;
     align-items: center;
 }
+
+.tags-input-container {
+    position: relative;
+}
+.tags-input-container svg {
+    position: absolute;
+    top: 23px;
+}
 .tag-item .close{
     height: 20px;
     width: 20px;
