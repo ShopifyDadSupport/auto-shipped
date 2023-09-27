@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import './AddIntervalDays.css';
 import axios from 'axios';
 import { Dna } from 'react-loader-spinner';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function TagsInput() {
     const [tags, setTags] = useState([]);
     const [inputValue, setInputValue] = useState('');
@@ -61,6 +63,16 @@ function TagsInput() {
                 const updatedTags = [...tags];
                 const removeUpdateData = updatedTags.splice(index, 1);
                 setTags(updatedTags);
+                toast.success('Delete successfully...', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    });
                 console.log('Tag update successfully:', removeUpdateData);
 
             })
@@ -83,6 +95,16 @@ function TagsInput() {
                 console.log('Tag added successfully:', response.data, currentURL);
                 setTags([...tags, inputValue]);
                 setInputValue('');
+                toast.success('Add successfully...', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
             })
             .catch(error => {
                 console.error('Error adding tag:', error);
@@ -90,44 +112,60 @@ function TagsInput() {
     };
     const allTags = [...data, ...tags];
     return (
-        <div className='interval_days__content'>
-            <h2 className='interval__days'>Add Interval Days</h2>
-            <div className='ineterval__days__content'>
-                <input
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    type="text"
-                    className="tags-input"
-                    placeholder="Enter the inerval days...."
-                />
-                <button onClick={addTag} className="add-button">Add</button>
-            </div>
-            <div className="tags-input-container">
 
-                {isLoading && (
-                    <Dna
-                        visible={true}
-                        height={80}
-                        width={80}
-                        ariaLabel="dna-loading"
-                        wrapperStyle={{}}
-                        wrapperClass="dna-wrapper"
+        <>
+            <div className='interval_days__content'>
+                <h2 className='interval__days'>Add Interval Days</h2>
+                <div className='ineterval__days__content'>
+                    <input
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        type="text"
+                        className="tags-input"
+                        placeholder="Enter the inerval days...."
                     />
-                )}
-                {!isLoading && (
-                    <>
-                        {allTags.map((tag, index) => (
-                            <div className="tag-item" key={index}>
-                                <span className="text">{tag}</span>
-                                <span className="close" onClick={() => removeTag(tag, index)}>&times;</span>
-                            </div>
-                        ))}
-                    </>
-                )}
+                    <button onClick={addTag} className="add-button">Add</button>
+                </div>
+                <div className="tags-input-container">
+
+                    {isLoading && (
+                        <Dna
+                            visible={true}
+                            height={80}
+                            width={80}
+                            ariaLabel="dna-loading"
+                            wrapperStyle={{}}
+                            wrapperClass="dna-wrapper"
+                        />
+                    )}
+                    {!isLoading && (
+                        <>
+                            {allTags.map((tag, index) => (
+                                <div className="tag-item" key={index}>
+                                    <span className="text">{tag}</span>
+                                    <span className="close" onClick={() => removeTag(tag, index)}>&times;</span>
+                                </div>
+                            ))}
+                        </>
+                    )}
+
+                </div>
 
             </div>
-        </div>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
+        </>
     );
 }
 
