@@ -1552,6 +1552,7 @@ databaseData.getConnection((err, connection) => {
 // });
   app.post('/send/portal/data', (req, res) => {
     const receivedData = req.body
+    const next_shippment_formattedDate =  receivedData.next_shippment_formattedDate;
      const subscription_order_id = receivedData.subscription_order_id;
      const selecte_value = receivedData.selecte_value;
      const data_seal_quantity = receivedData.data_seal_quantity;
@@ -1564,9 +1565,7 @@ databaseData.getConnection((err, connection) => {
      const shopping_phone = receivedData.shopping_phone;
      const shipping_company = receivedData.shipping_company; 
      const  discount_code = receivedData.discount_code;
-
-  
-    console.log('Received data:', subscription_order_id,selecte_value,data_seal_quantity,data_seal_email,shipping_first_name,shipping_last_name,shipping_address1,shipping_address2,shipping_zip,shopping_phone,shipping_company,discount_code);
+    console.log('Received data:', subscription_order_id, selecte_value,data_seal_quantity,data_seal_email,shipping_first_name,shipping_last_name,shipping_address1,shipping_address2,shipping_zip,shopping_phone,shipping_company,discount_code);
     // Process the receivedData here as needed
     databaseData.getConnection((err, connection) => {
       if (err) {
@@ -1575,11 +1574,11 @@ databaseData.getConnection((err, connection) => {
       }
   
       const updateQuery =
-          "UPDATE subscriptionorder SET subscription_interval_days = ?, subscription_customer_email = ?, subscription_product_Quantity = ?, subscriptionshipping_address_first_name = ?, subscriptionshipping_shippingAddress_last_name = ?, subscriptionshipping_shippingAddress_address1 = ?, subscriptionshippingAddress_zip = ? WHERE subscription_order_id = ?";
+          "UPDATE subscriptionorder SET Next_Shipment_Date = ?, subscription_interval_days = ?, subscription_customer_email = ?, subscription_product_Quantity = ?, subscriptionshipping_address_first_name = ?, subscriptionshipping_shippingAddress_last_name = ?, subscriptionshipping_shippingAddress_address1 = ?, subscriptionshippingAddress_zip = ? WHERE subscription_order_id = ?";
   
       connection.query(
           updateQuery,
-          [selecte_value, data_seal_email, data_seal_quantity, shipping_first_name, shipping_last_name, shipping_address1, shipping_zip, subscription_order_id],
+          [next_shippment_formattedDate, selecte_value, data_seal_email, data_seal_quantity, shipping_first_name, shipping_last_name, shipping_address1, shipping_zip, subscription_order_id],
           (err, result) => {
               connection.release(); // Release the connection when done
   

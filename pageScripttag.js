@@ -1947,7 +1947,21 @@ if (window.location.pathname === '/pages/portalsubscription') {
                      `);
             $(this).parents("[data-editable-container]").removeClass("active");
 
+            var varString = selecte_value;
+            var daysToAdd = parseInt(varString);
+            var next_shippment_date = entry.Next_Shipment_Date; 
+            var next_shippment_date_originalDate = new Date(next_shippment_date);
+            var next_shippment_date_newDate = new Date(next_shippment_date_originalDate.getTime() + (daysToAdd * 24 * 60 * 60 * 1000));
+            
+            var year = next_shippment_date_newDate.getFullYear();
+            var month = String(next_shippment_date_newDate.getMonth() + 1).padStart(2, '0');
+            var day = String(next_shippment_date_newDate.getDate()).padStart(2, '0');
+            
+            var next_shippment_formattedDate = `${year}-${month}-${day}`;
+            
+            console.log(next_shippment_formattedDate);
             var data_portal = {
+              next_shippment_formattedDate:next_shippment_formattedDate,
               subscription_order_id:entry.subscription_order_id,
               selecte_value: selecte_value,
               data_seal_quantity: data_seal_quantity,
