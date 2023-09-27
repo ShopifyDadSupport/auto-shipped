@@ -1390,12 +1390,12 @@ function scheduleDailySynOrder() {
 }
 scheduleDailySynOrder();
 
-databaseData.connect(function (err) {
-  if (err) throw err;
-  console.log(
-    "Connected! my sql  to node js ................................."
-  );
-});
+// databaseData.connect(function (err) {
+//   if (err) throw err;
+//   console.log(
+//     "Connected! my sql  to node js ................................."
+//   );
+// });
 // var totalVisitors__temp = [];
 // app.post('/send/visiter/data', (req, res) => {
 //   const totalVisitors = parseInt(req.body.totalVisitors, 10);
