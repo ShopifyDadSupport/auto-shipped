@@ -661,7 +661,7 @@ function createOrder(orderId) {
       var Customer_Email = customer.email;
       var Customer_First_Name = customer.first_name;
       var Customer_Last_Name = customer.last_name;
-      // Extracting billing address
+      // Exstracting billing addres
       const billingAddress = responseData.order.billing_address;
       var Billing_First_Name = billingAddress.first_name;
       var Billing_Last_Name = billingAddress.last_name;
@@ -705,8 +705,7 @@ function createOrder(orderId) {
       var orderData_total_tax = responseData.order.total_tax;
       var orderData_total_discounts = responseData.order.total_discounts;
       var orderData_total_line_items_price =
-        responseData.order.total_line_items_price;
-
+      responseData.order.total_line_items_price;
       console.log("Email:", responseData.order.email);
       console.log("Currency:", responseData.order.currency);
       console.log("Financial Status:", responseData.order.financial_status);
