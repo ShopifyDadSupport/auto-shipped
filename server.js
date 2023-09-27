@@ -546,42 +546,75 @@ app.post("/webhooks/orders/create", (req, res) => {
             if (reshipped_note_attributes_name == "Reshipped order") {
               console.log("this is Reshipped order data");
             } else {
-              const insertQuery =
-                "INSERT INTO subscriptionorder(subscription_order_name, subscription_customer_name, subscription_customer_email, create_order_date, subscription_order_id, Next_Shipment_Date, subscription_interval_days, subscription_total_price, Status, subscription_product__title, subscription_product_Quantity, subscription_product__price, subscriptionshipping_address_first_name, subscriptionshipping_shippingAddress_last_name, subscriptionshipping_shippingAddress_address1, subscriptionshippingAddress_city, subscriptionshippingAddress_zip, subscriptionshippingAddress_country) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-              const status = "Active";
-              databaseData.query(
-                insertQuery,
-                [
-                  subscription_order_name,
-                  Customer_First_Name,
-                  Customer_Email,
-                  date_with_time,
-                  orderId,
-                  updatedDate,
-                  propertyValue,
-                  orderData_total_price,
-                  status,
-                  firstItemTitle,
-                  firstItemQuantity,
-                  firstItemPrice,
-                  shippingAddress_first_name,
-                  shippingAddress_last_name,
-                  shippingAddress_address1,
-                  shippingAddress_city,
-                  shippingAddress_zip,
-                  shippingAddress_country
-                ],
-                (err, result) => {
-                  if (err) {
-                    console.error("Error inserting data:", err);
-                    return;
-                  }
-                  console.log("Data inserted successfully!");
-                  console.log("Inserted ID:", result.insertId);
-                  //  sendSubscriptionEmail.callSealSubscription(Customer_Email,orderId);
-                  //  callme();
+              databaseData.getConnection((err, connection) => {
+                if (err) {
+                  console.error('Error connecting to MySQL:', err);
+                  return;
                 }
-              );
+              
+                const insertQuery = `
+                  INSERT INTO subscriptionorder (
+                    subscription_order_name,
+                    subscription_customer_name,
+                    subscription_customer_email,
+                    create_order_date,
+                    subscription_order_id,
+                    Next_Shipment_Date,
+                    subscription_interval_days,
+                    subscription_total_price,
+                    Status,
+                    subscription_product__title,
+                    subscription_product_Quantity,
+                    subscription_product__price,
+                    subscriptionshipping_address_first_name,
+                    subscriptionshipping_shippingAddress_last_name,
+                    subscriptionshipping_shippingAddress_address1,
+                    subscriptionshippingAddress_city,
+                    subscriptionshippingAddress_zip,
+                    subscriptionshippingAddress_country
+                  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                `;
+              
+                const status = "Active";
+              
+                connection.query(
+                  insertQuery,
+                  [
+                    subscription_order_name,
+                    Customer_First_Name,
+                    Customer_Email,
+                    date_with_time,
+                    orderId,
+                    updatedDate,
+                    propertyValue,
+                    orderData_total_price,
+                    status,
+                    firstItemTitle,
+                    firstItemQuantity,
+                    firstItemPrice,
+                    shippingAddress_first_name,
+                    shippingAddress_last_name,
+                    shippingAddress_address1,
+                    shippingAddress_city,
+                    shippingAddress_zip,
+                    shippingAddress_country
+                  ],
+                  (err, result) => {
+                    connection.release(); // Release the connection when done
+              
+                    if (err) {
+                      console.error("Error inserting data:", err);
+                      return;
+                    }
+              
+                    console.log("Data inserted successfully!");
+                    console.log("Inserted ID:", result.insertId);
+                    //  sendSubscriptionEmail.callSealSubscription(Customer_Email,orderId);
+                    //  callme();
+                  }
+                );
+              });
+              
             }
           }
         });
@@ -987,40 +1020,35 @@ function createOrder(orderId) {
             // console.log("storeAllOrderDatestoreAllOrderDate::", storeAllOrderDate);
             const createOrderDate = updatedDate;
             // const orderId = OrderId;
-            const updateQuery =
-              "UPDATE subscriptionorder SET create_order_date = ?, Next_Shipment_Date = ? WHERE subscription_order_id = ?";
-
-            databaseData.query(
-              updateQuery,
-              [originalDate, updatedDate, orderId],
-              (err, result) => {
+            databaseData.getConnection((err, connection) => {
+              const updateQuery = "UPDATE subscriptionorder SET create_order_date = ?, Next_Shipment_Date = ? WHERE subscription_order_id = ?";
+            
+              databaseData.query(updateQuery, [originalDate, updatedDate, orderId], (err, result) => {
                 if (err) {
                   console.error("Error updating data:", err);
                   return;
                 }
-
+            
                 console.log("Data updated successfully!");
                 console.log("Affected rows:", result.affectedRows);
-              }
-            );
-            const insertQuery =
-              "INSERT INTO reshipped_order (subscription_order_id, reshipped_order_id, reshipped_create_date) VALUES (?, ?, ?)";
-            const subscriptionOrderId = orderId; // Subscription Order ID
-            const reshippedOrderIds = reship_OrderId; // Comma-separated list of reshipped_order_ids
-            const reshippedCreate_Date = createOrderDate;
-
-            databaseData.query(
-              insertQuery,
-              [subscriptionOrderId, reshippedOrderIds, reshippedCreate_Date],
-              (err, result) => {
+              });
+            
+              const insertQuery = "INSERT INTO reshipped_order (subscription_order_id, reshipped_order_id, reshipped_create_date) VALUES (?, ?, ?)";
+              const subscriptionOrderId = orderId; // Subscription Order ID
+              const reshippedOrderIds = reship_OrderId; // Comma-separated list of reshipped_order_ids
+              const reshippedCreate_Date = createOrderDate;
+            
+              databaseData.query(insertQuery, [subscriptionOrderId, reshippedOrderIds, reshippedCreate_Date], (err, result) => {
                 if (err) {
                   console.error("Error inserting data:", err);
                   return;
                 }
+            
                 console.log("Data inserted successfully!");
                 console.log("Inserted ID:", result.insertId);
-              }
-            );
+              });
+            });
+            
           });
         });
       } else {
@@ -1035,44 +1063,62 @@ function createOrder(orderId) {
 
 // const Customer_Email="xyz@gmail.com",subscription_order_name = "7686";
 app.get("/subscription/order", (req, res) => {
-  const query = 'SELECT * FROM subscriptionorder where Status = "Active"';
-  databaseData.query(query, (error, results, fields) => {
-    if (error) {
-      console.error("Error fetching data:", error);
-      res.status(500).send("Error fetching data");
-    } else {
-      res.json(results); // Send fetched data as JSON response
-    }
+  databaseData.getConnection((err, connection) => {
+    const query = 'SELECT * FROM subscriptionorder where Status = "Active"';
+    
+    databaseData.query(query, (error, results, fields) => {
+      connection.release(); // Release the connection when done
+  
+      if (error) {
+        console.error("Error fetching data:", error);
+        res.status(500).send("Error fetching data");
+      } else {
+        res.json(results); // Send fetched data as JSON response
+      }
+    });
   });
+  
 });
 
 app.post("/subscription/order/:orderId", (req, res) => {
   const orderId = req.params.orderId;
   const cancellationDateTime = req.body.cancellationDateTime;
   const status = "Cancelled";
-  const updateQuery =
-    "UPDATE subscriptionorder SET Status = ?, subscription_cancel_date = ? WHERE subscription_order_id = ?";
-  databaseData.query(updateQuery, [status, cancellationDateTime, orderId], (err, result) => {
-    if (err) {
-      console.error("Error updating data:", err);
-      return;
-    }
-    console.log("Data updated successfully!");
-    console.log("Affected rows:", result.affectedRows);
-    res.status(200).json({ message: "cancelled" });
+  databaseData.getConnection((err, connection) => {     
+    const updateQuery = "UPDATE subscriptionorder SET Status = ?, subscription_cancel_date = ? WHERE subscription_order_id = ?";
+    
+    databaseData.query(updateQuery, [status, cancellationDateTime, orderId], (err, result) => {
+      connection.release(); // Release the connection when done
+  
+      if (err) {
+        console.error("Error updating data:", err);
+        return;
+      }
+  
+      console.log("Data updated successfully!");
+      console.log("Affected rows:", result.affectedRows);
+      res.status(200).json({ message: "cancelled" });
+    });
   });
+  
 });
 
 app.get("/subscription/cancelledorder", (req, res) => {
-  const query = 'SELECT * FROM subscriptionorder where Status = "Cancelled"';
-  databaseData.query(query, (error, results, fields) => {
-    if (error) {
-      console.error("Error fetching data:", error);
-      res.status(500).send("Error fetching data");
-    } else {
-      res.json(results); // Send fetched data as JSON response
-    }
+  databaseData.getConnection((err, connection) => {
+    const query = 'SELECT * FROM subscriptionorder where Status = "Cancelled"';
+  
+    databaseData.query(query, (error, results, fields) => {
+      connection.release(); // Release the connection when done
+  
+      if (error) {
+        console.error("Error fetching data:", error);
+        res.status(500).send("Error fetching data");
+      } else {
+        res.json(results); // Send fetched data as JSON response
+      }
+    });
   });
+  
 });
 // Define a global variable to temporarily store the store_name
 // let tempStoreName = '';
@@ -1115,20 +1161,24 @@ app.post('/add/addIntervalDays', (req, res) => {
     console.log('Data is not unique.');
   }
   // Store the value in the global variable
-  const insertQuery =
-    "INSERT INTO subscriptionintervaldays (subscription_interval_days, subscription_current_store_name) VALUES (?, ?)";
-  databaseData.query(
-    insertQuery,
-    [add_interval_days, store_name],
-    (err, result) => {
+  databaseData.getConnection((err, connection) => {
+    const insertQuery = "INSERT INTO subscriptionintervaldays (subscription_interval_days, subscription_current_store_name) VALUES (?, ?)";
+  
+    databaseData.query(insertQuery, [add_interval_days, store_name], (err, result) => {
+      connection.release(); // Release the connection when done
+  
       if (err) {
         console.error("Error inserting data:", err);
         return;
       }
+  
       console.log("Data inserted successfully!");
       console.log("Inserted ID:", result.insertId);
     });
-  res.status(200).json({ message: add_interval_days, url: store_name });
+  
+    res.status(200).json({ message: add_interval_days, url: store_name });
+  });
+  
 });
 
 // GET route to retrieve interval days based on store_name
@@ -1148,17 +1198,23 @@ app.get('/getadd/addIntervalDays', (req, res) => {
   //     res.status(200).json({ subscription_interval_days: intervalDays });
   //   });
   // });
-    const selectQuery =
-    "SELECT subscription_interval_days FROM subscriptionintervaldays";
-  databaseData.query(selectQuery, (err, results) => {
-    if (err) {
-      console.error("Error fetching data:", err);
-      res.status(500).json({ error: "Error fetching data" });
-      return;
-    }
-    const intervalDays = results.map(result => result.subscription_interval_days);
-    res.status(200).json({ subscription_interval_days: intervalDays });
+  databaseData.getConnection((err, connection) => {
+    const selectQuery = "SELECT subscription_interval_days FROM subscriptionintervaldays";
+  
+    databaseData.query(selectQuery, (err, results) => {
+      connection.release(); // Release the connection when done
+  
+      if (err) {
+        console.error("Error fetching data:", err);
+        res.status(500).json({ error: "Error fetching data" });
+        return;
+      }
+  
+      const intervalDays = results.map(result => result.subscription_interval_days);
+      res.status(200).json({ subscription_interval_days: intervalDays });
+    });
   });
+  
 });
 
 
@@ -1176,15 +1232,22 @@ app.post('/remove/addIntervaldays', (req, res) => {
   //   res.status(200).json({ message: remove_interval_days, url: remove_store_name });
   // });
   console.log("working on it this rout................", remove_interval_days, remove_store_name);
-  const selectDeleteQuery = `DELETE FROM subscriptionintervaldays WHERE subscription_interval_days ='${remove_interval_days}'`;
-  databaseData.query(selectDeleteQuery, (err, results) => {
-    if (err) {
-      console.error('Error executing DELETE query:', err);
-      return;
-    }
-    console.log('Deleted rows:', results.affectedRows);
-    res.status(200).json({ message: remove_interval_days, url: remove_store_name });
+  databaseData.getConnection((err, connection) => {
+    const selectDeleteQuery = `DELETE FROM subscriptionintervaldays WHERE subscription_interval_days ='${remove_interval_days}'`;
+  
+    databaseData.query(selectDeleteQuery, (err, results) => {
+      connection.release(); // Release the connection when done
+  
+      if (err) {
+        console.error('Error executing DELETE query:', err);
+        return;
+      }
+  
+      console.log('Deleted rows:', results.affectedRows);
+      res.status(200).json({ message: remove_interval_days, url: remove_store_name });
+    });
   });
+  
 })
 
 
@@ -1219,16 +1282,21 @@ app.get('/subscriptionPortal/order', (req, res) => {
     } else {
       const subscription_order_id = JSON.parse(data).orderIdvalue;
       console.log("subscription order id :- ", subscription_order_id);
-      const query = `SELECT * FROM subscriptionorder WHERE subscription_order_id = '${subscription_order_id}'`;
-
-      databaseData.query(query, (error, results) => {
-        if (error) {
-          console.error('Error fetching data:', error);
-          res.status(500).send('Error fetching data');
-        } else {
-          res.json(results); // Send fetched data as JSON response
-        }
+      databaseData.getConnection((err, connection) => {
+        const query = `SELECT * FROM subscriptionorder WHERE subscription_order_id = '${subscription_order_id}'`;
+      
+        databaseData.query(query, (error, results) => {
+          connection.release(); // Release the connection when done
+      
+          if (error) {
+            console.error('Error fetching data:', error);
+            res.status(500).send('Error fetching data');
+          } else {
+            res.json(results); // Send fetched data as JSON response
+          }
+        });
       });
+      
     }
   });
 
@@ -1342,49 +1410,47 @@ function scheduleDailySynOrder() {
   }
   const timeDifference = targetTime - now;
   setTimeout(() => {
-    const query =
-      'SELECT Next_Shipment_Date, subscription_order_id FROM subscriptionorder WHERE Status = "Active"';
-    let datesArray;
-    databaseData.query(query, (error, results) => {
-      if (error) {
-        console.error("Error executing query:", error);
-        return;
-      }
-      // const datesArray = storeAllOrderDate;
-      datesArray = results.map((row) => {
-        // Convert row.Next_Shipment_Date to a Date object if it's not already
-        const nextShipmentDate = new Date(row.Next_Shipment_Date);
-
-        return {
-          createOrder: nextShipmentDate.toISOString().slice(0, 10),
-          OrderId: row.subscription_order_id,
-        };
-      });
-
-
-      const currentDate = new Date().toISOString().slice(0, 10);
-      let consecutiveMatches = 0;
-
-      for (const dateData of datesArray) {
-        console.log("time:.dslakjdhsakdhjkashgdhashgdahgdhgsa-", currentDate);
-        if (dateData.createOrder === currentDate) {
-          consecutiveMatches++;
-          console.log("scheduleDailySynOrder working........");
-          createOrder(dateData.OrderId); // Call createOrder with the OrderId
-        } else {
-          console.log("scheduleDailySynOrder not working........");
+    databaseData.getConnection((err, connection) => {
+      const query = 'SELECT Next_Shipment_Date, subscription_order_id FROM subscriptionorder WHERE Status = "Active"';
+      let datesArray;
+    
+      databaseData.query(query, (error, results) => {
+        connection.release(); // Release the connection when done
+    
+        if (error) {
+          console.error("Error executing query:", error);
+          return;
         }
-      }
-      if (consecutiveMatches > 0) {
-        console.log(`Matched date ${consecutiveMatches} time(s) continuously.`);
-      } else {
-        console.log(
-          "Current date does not match or the matches are not consecutive."
-        );
-      }
-      // Process the formatted results
-      console.log("Formatted Results:", datesArray);
+    
+        datesArray = results.map((row) => {
+          const nextShipmentDate = new Date(row.Next_Shipment_Date);
+    
+          return {
+            createOrder: nextShipmentDate.toISOString().slice(0, 10),
+            OrderId: row.subscription_order_id,
+          };
+        });
+    
+        const currentDate = new Date().toISOString().slice(0, 10);
+        let consecutiveMatches = 0;
+    
+        for (const dateData of datesArray) {
+          if (dateData.createOrder === currentDate) {
+            consecutiveMatches++;
+            createOrder(dateData.OrderId); // Call createOrder with the OrderId
+          }
+        }
+    
+        if (consecutiveMatches > 0) {
+          console.log(`Matched date ${consecutiveMatches} time(s) continuously.`);
+        } else {
+          console.log("Current date does not match or the matches are not consecutive.");
+        }
+    
+        console.log("Formatted Results:", datesArray);
+      });
     });
+    
     scheduleDailySynOrder();
   }, timeDifference);
 }
@@ -1402,16 +1468,16 @@ databaseData.getConnection((err, connection) => {
   // You can now use the 'connection' object to execute queries
 
   // Example query
-  connection.query('SELECT * FROM subscriptionorder', (error, results, fields) => {
-      connection.release(); // Release the connection when done
+  // connection.query('SELECT * FROM subscriptionorder', (error, results, fields) => {
+  //     connection.release(); // Release the connection when done
 
-      if (error) {
-          console.error('Error executing query:', error);
-          return;
-      }
+  //     if (error) {
+  //         console.error('Error executing query:', error);
+  //         return;
+  //     }
 
-      console.log('Results:', results);
-  });
+  //     console.log('Results:', results);
+  // });
 });
 // databaseData.connect(function (err) {
 //   if (err) throw err;
@@ -1502,24 +1568,35 @@ databaseData.getConnection((err, connection) => {
   
     console.log('Received data:', subscription_order_id,selecte_value,data_seal_quantity,data_seal_email,shipping_first_name,shipping_last_name,shipping_address1,shipping_address2,shipping_zip,shopping_phone,shipping_company,discount_code);
     // Process the receivedData here as needed
-    const updateQuery =
-      "UPDATE subscriptionorder SET subscription_interval_days = ?, subscription_customer_email = ?, subscription_product_Quantity = ?, subscriptionshipping_address_first_name = ?, subscriptionshipping_shippingAddress_last_name = ?, subscriptionshipping_shippingAddress_address1 = ?, subscriptionshippingAddress_zip = ? WHERE subscription_order_id = ?";
-
-    databaseData.query(
-      updateQuery,
-      [selecte_value, data_seal_email, data_seal_quantity, shipping_first_name, shipping_last_name, shipping_address1, shipping_zip, subscription_order_id],
-      (err, result) => {
-        if (err) {
-          console.error("Error updating data:", err);
+    databaseData.getConnection((err, connection) => {
+      if (err) {
+          console.error('Error connecting to MySQL:', err);
           return;
-        }
-
-        console.log("Data updated successfully!");
-        console.log("Affected rows:", result.affectedRows);
       }
-    );
-    // Send a response back to the client
-    res.send('Data received successfully!');
+  
+      const updateQuery =
+          "UPDATE subscriptionorder SET subscription_interval_days = ?, subscription_customer_email = ?, subscription_product_Quantity = ?, subscriptionshipping_address_first_name = ?, subscriptionshipping_shippingAddress_last_name = ?, subscriptionshipping_shippingAddress_address1 = ?, subscriptionshippingAddress_zip = ? WHERE subscription_order_id = ?";
+  
+      connection.query(
+          updateQuery,
+          [selecte_value, data_seal_email, data_seal_quantity, shipping_first_name, shipping_last_name, shipping_address1, shipping_zip, subscription_order_id],
+          (err, result) => {
+              connection.release(); // Release the connection when done
+  
+              if (err) {
+                  console.error("Error updating data:", err);
+                  return;
+              }
+  
+              console.log("Data updated successfully!");
+              console.log("Affected rows:", result.affectedRows);
+          }
+      );
+      
+      // Send a response back to the client
+      res.send('Data received successfully!');
+  });
+  
 });
 
   // request(options, function (error, response) {
