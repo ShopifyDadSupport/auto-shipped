@@ -1390,6 +1390,29 @@ function scheduleDailySynOrder() {
 }
 scheduleDailySynOrder();
 
+
+databaseData.getConnection((err, connection) => {
+  if (err) {
+      console.error('Error connecting to MySQL:', err);
+      return;
+  }
+  
+  console.log('Connected to MySQL!');
+
+  // You can now use the 'connection' object to execute queries
+
+  // Example query
+  connection.query('SELECT * FROM subscriptionorder', (error, results, fields) => {
+      connection.release(); // Release the connection when done
+
+      if (error) {
+          console.error('Error executing query:', error);
+          return;
+      }
+
+      console.log('Results:', results);
+  });
+});
 // databaseData.connect(function (err) {
 //   if (err) throw err;
 //   console.log(
