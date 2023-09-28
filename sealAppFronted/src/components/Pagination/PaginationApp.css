@@ -63,15 +63,17 @@ td {
 .delete__order{
     background-color: red;
     border: none;
-    color: white;
-    padding: 5px 22px;
-    text-align: center;
-    text-decoration: none;
+    border-radius: 50px;
+    color: #fff;
+    cursor: pointer;
     display: inline-block;
     font-size: 16px;
-    cursor: pointer;
-    border-radius: 50px;
-    margin-right: 10px;
+    /* margin-right: 10px; */
+    position: relative;
+    left: 15px;
+    padding: 5px 22px;
+    text-align: left;
+    text-decoration: none;
 }
 td.subscription_cancel_date {
     margin-right: 10px;

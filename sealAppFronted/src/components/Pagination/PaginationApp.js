@@ -163,7 +163,7 @@ export default function PaginationApp() {
                       {/* <td>{formatDate(item.Next_Shipment_Date)}</td> */}
                       <td>{item.Next_Shipment_Date}</td>
                       <td>${item.subscription_total_price}</td>
-                      <td>{item.Status}</td>
+                      <td style={{color:"green",fontWeight:"500"}}>{item.Status}</td>
                       <td>
                         {item.Status === "Active" ? (
                           <button
