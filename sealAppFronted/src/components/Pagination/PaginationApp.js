@@ -135,7 +135,8 @@ export default function PaginationApp() {
               <th>Order ID</th>
               <th>NextShipment Date</th>
               <th>Total Price</th>
-              <th colSpan={3}>Status</th>
+              <th>Status</th>
+              <th colSpan={2}></th>
             </tr>
           </thead>
           <tbody>
