@@ -42,14 +42,11 @@ export default function Sidebar({ children }) {
                 Frest
               </SidebarBrand> */}
             </SidebarLogo>
-            <SidebarToggler
+            {/* <SidebarToggler
               displaySidebar={displaySidebar}
               onClick={handleSidebarDisplay}
             >
-              {/* <div className="outer__circle">
-                <div className="inner__circle" />
-              </div> */}
-            </SidebarToggler>
+            </SidebarToggler> */}
           </SidebarLogoWrapper>
           <SidebarItems displaySidebar={displaySidebar} />
         </SidebarWrapper>

@@ -124,6 +124,7 @@ export default function PaginationApp() {
         />
       </div>
       {active && (
+        <>
         <table>
           <thead>
             <tr>
@@ -209,11 +210,18 @@ export default function PaginationApp() {
             )}
           </tbody>
         </table>
-        
+           <Pagination
+           className="pagination-bar"
+           currentPage={currentPage}
+           totalCount={filteredData.length}
+           pageSize={PageSize}
+           onPageChange={(page) => setCurrentPage(page)}
+         />
+         </>
       )}
       {!active && (
         <>
-          {showOrderDetails && (
+          {/* {showOrderDetails && ( */}
             <OrderDetails
               orderData={showOrderDetails}
 
@@ -222,16 +230,10 @@ export default function PaginationApp() {
                 setActive(true);
               }}
             />
-          )}
-          {!showOrderDetails && (
-            <Pagination
-              className="pagination-bar"
-              currentPage={currentPage}
-              totalCount={filteredData.length}
-              pageSize={PageSize}
-              onPageChange={(page) => setCurrentPage(page)}
-            />
-          )}
+          {/* )} */}
+          {/* {!showOrderDetails && (
+         
+          )} */}
         </>
       )}
       <ToastContainer
