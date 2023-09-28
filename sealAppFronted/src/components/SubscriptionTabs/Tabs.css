@@ -32,7 +32,7 @@
   
   .tab-buttons button.active {
     color: #000;
-    border-bottom:3px solid rgb(0 128 96);
+    border-bottom:3px solid maroon;
   }
   
   .tab-content {
