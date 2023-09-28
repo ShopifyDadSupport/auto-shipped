@@ -209,14 +209,15 @@ export default function PaginationApp() {
               </>
             )}
           </tbody>
-        </table>
-           <Pagination
+          <Pagination
            className="pagination-bar"
            currentPage={currentPage}
            totalCount={filteredData.length}
            pageSize={PageSize}
            onPageChange={(page) => setCurrentPage(page)}
          />
+        </table>
+           
          </>
       )}
       {!active && (

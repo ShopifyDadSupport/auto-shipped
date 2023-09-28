@@ -56,7 +56,7 @@ export default function SubscriptionUpcoming() {
             onChange={handleSearch}
           />
         </div>
-        <table>
+        <table className='upcomin_subscription'>
           <thead>
             <tr>
               <th>Order name</th>

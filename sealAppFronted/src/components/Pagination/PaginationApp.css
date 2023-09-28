@@ -31,19 +31,20 @@ td {
 	overflow-wrap: break-word;
     font-size: 14px;
 }
-
+.upcomin_subscription td, th {
+    font-size: 14px;
+    overflow-wrap: break-word;
+    padding: 10px;
+}
 .pagination-bar {
     width: -moz-fit-content;
     width: fit-content;
     display: flex;
     justify-content: center;
-    position: fixed;
     bottom: 0;
-    left: 53%;
-    transform: translateX(-50%);
-    background: red;
+    background: maroon;
     border-radius: 50px;
-    bottom: 40px;
+    margin-top: 25px;
 }
 .pagination {
     position: relative;
