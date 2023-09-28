@@ -37,9 +37,9 @@ const apiKey = SHOPIFY_API_KEY;
 const apisecret = SHOPIFY_API_SECRET;
 
 const scopes =
-  "read_orders,write_orders,read_products,write_products,read_customers,write_customers,read_shipping,write_shipping ,read_themes,write_themes";
+  "read_orders,write_orders,read_products,write_products,read_customers,write_customers,read_shipping,write_shipping ,read_themes,write_themes,read_checkouts,write_checkouts";
 
-const forwardingaddress = "https://3e77-183-82-162-242.ngrok-free.app";
+const forwardingaddress = "https://sealapp-6ptb.onrender.com";
 
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
