@@ -162,7 +162,7 @@ export default function PaginationApp() {
                       <td>{item.subscription_order_id}</td>
                       {/* <td>{formatDate(item.Next_Shipment_Date)}</td> */}
                       <td>{item.Next_Shipment_Date}</td>
-                      <td>{item.subscription_total_price}</td>
+                      <td>${item.subscription_total_price}</td>
                       <td>{item.Status}</td>
                       <td>
                         {item.Status === "Active" ? (

@@ -86,7 +86,7 @@ export default function SubscriptionUpcoming() {
                     <td>{item.subscription_customer_name}</td>
                     <td>{item.subscription_customer_email}</td>
                     <td>{item.Next_Shipment_Date}</td>
-                    <td>{item.subscription_total_price}</td>
+                    <td>${item.subscription_total_price}</td>
                   </tr>
                 ))
               ) : (
