@@ -36,6 +36,9 @@ td {
     overflow-wrap: break-word;
     padding: 10px;
 }
+.SubscriptionCancelOrder td, th {
+    padding: 10px;
+}
 .pagination-bar {
     width: -moz-fit-content;
     width: fit-content;
