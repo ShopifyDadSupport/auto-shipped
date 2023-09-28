@@ -1249,9 +1249,6 @@ app.post('/remove/addIntervaldays', (req, res) => {
   });
   
 })
-
-
-
 app.post("/subscriptionPortal/order/:orderId", (req, res) => {
   const orderId = req.params.orderId;
   const subscription_order_id = req.body.subscription_order_id;

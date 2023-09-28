@@ -4,9 +4,9 @@ import "./usePagination";
 import "./PaginationApp.css";
 import axios from "axios";
 import OrderDetails from "./OrderDetails";
-import { Dna } from 'react-loader-spinner'; 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Dna } from "react-loader-spinner";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 let PageSize = 8;
 export default function PaginationApp() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,19 +15,20 @@ export default function PaginationApp() {
   const [showCancelMessage, setShowCancelMessage] = useState();
   const [showOrderDetails, setShowOrderDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  
+  const [active, setActive] = useState(true);
+
   useEffect(() => {
     // Fetch data from the API
     fetch("https://sealapp-6ptb.onrender.com/subscription/order")
       .then((response) => response.json())
       .then((data) => {
-        setData(data)
-        setIsLoading(false); 
-       })
+        setData(data);
+        setIsLoading(false);
+      })
       .catch((error) => {
         setIsLoading(false);
-        console.error("Error fetching data:", error)
-       });
+        console.error("Error fetching data:", error);
+      });
   }, []);
 
   const handleSearch = (event) => {
@@ -56,15 +57,18 @@ export default function PaginationApp() {
     const date_with_time = `${updatedDate} ${formattedTime}`;
 
     // Send a DELETE request to your backend API using Axios
-    axios.post(`https://sealapp-6ptb.onrender.com/subscription/order/${orderId}`, {
+    axios
+      .post(`https://sealapp-6ptb.onrender.com/subscription/order/${orderId}`, {
         cancellationDateTime: date_with_time,
       })
-      .then(response => {
+      .then((response) => {
         // Remove the item from the data in state
-        const updatedData = data.filter(item => item.subscription_order_id !== orderId);
+        const updatedData = data.filter(
+          (item) => item.subscription_order_id !== orderId
+        );
         setData(updatedData);
         setShowCancelMessage(response.data.message);
-        toast.success('cancel successfully...', {
+        toast.success("cancel successfully...", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -73,7 +77,7 @@ export default function PaginationApp() {
           draggable: true,
           progress: undefined,
           theme: "dark",
-          });
+        });
         console.log(response.data.message);
       })
       .then((response) => {
@@ -119,114 +123,128 @@ export default function PaginationApp() {
           onChange={handleSearch}
         />
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Order name</th>
-            <th>Customer Name</th>
-            <th>Customer Email</th>
-            <th>Order Date</th>
-            <th>Order ID</th>
-            <th>NextShipment Date</th>
-            <th>Total Price</th>
-            <th colSpan={3}>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-           {isLoading && (
-            <Dna
-              visible={true}
-              height={80}
-              width={80}
-              ariaLabel="dna-loading"
-              wrapperStyle={{}}
-              wrapperClass="dna-wrapper"
+      {active && (
+        <table>
+          <thead>
+            <tr>
+              <th>Order name</th>
+              <th>Customer Name</th>
+              <th>Customer Email</th>
+              <th>Order Date</th>
+              <th>Order ID</th>
+              <th>NextShipment Date</th>
+              <th>Total Price</th>
+              <th colSpan={3}>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {isLoading && (
+              <Dna
+                visible={true}
+                height={80}
+                width={80}
+                ariaLabel="dna-loading"
+                wrapperStyle={{}}
+                wrapperClass="dna-wrapper"
+              />
+            )}
+            {!isLoading && (
+              <>
+                {currentTableData.length > 0 ? (
+                  currentTableData.map((item) => (
+                    <tr key={item.id}>
+                      <td>{item.subscription_order_name}</td>
+                      <td>{item.subscription_customer_name}</td>
+                      <td>{item.subscription_customer_email}</td>
+                      {/* <td>{formatDate(item.create_order_date)}</td> */}
+                      <td>{item.create_order_date}</td>
+                      <td>{item.subscription_order_id}</td>
+                      {/* <td>{formatDate(item.Next_Shipment_Date)}</td> */}
+                      <td>{item.Next_Shipment_Date}</td>
+                      <td>{item.subscription_total_price}</td>
+                      <td>{item.Status}</td>
+                      <td>
+                        {item.Status === "Active" ? (
+                          <button
+                            className="delete__order"
+                            onClick={() =>
+                              handleCancel(item.subscription_order_id)
+                            }
+                          >
+                            Cancel
+                          </button>
+                        ) : (
+                          <span>{item.Status}</span>
+                        )}
+                      </td>
+                      <td>
+                        <button
+                          className="view__order"
+                          onClick={() => {
+                            console.log("View button clicked"); // Add this line
+                            setShowOrderDetails(item);
+                            setActive(false);
+                          }}
+                        >
+                          <svg
+                            viewBox="0 0 20 20"
+                            class="Polaris-Icon__Svg"
+                            focusable="false"
+                            aria-hidden="true"
+                          >
+                            <path d="M17.928 9.628C17.836 9.399 15.611 4 9.999 4S2.162 9.399 2.07 9.628a1.017 1.017 0 0 0 0 .744C2.162 10.601 4.387 16 9.999 16s7.837-5.399 7.929-5.628a1.017 1.017 0 0 0 0-.744zM9.999 14a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-6A2 2 0 1 0 10 12.001 2 2 0 0 0 10 8z"></path>
+                          </svg>
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="9" className="text-center">
+                      No results found.
+                    </td>
+                  </tr>
+                )}
+              </>
+            )}
+          </tbody>
+        </table>
+        
+      )}
+      {!active && (
+        <>
+          {showOrderDetails && (
+            <OrderDetails
+              orderData={showOrderDetails}
+
+              onClose={() => {
+                setShowOrderDetails(null)
+                setActive(true);
+              }}
             />
           )}
-          {!isLoading && (
-            <>
-          {currentTableData.length > 0 ? (
-            currentTableData.map((item) => (
-              <tr key={item.id}>
-                <td>{item.subscription_order_name}</td>
-                <td>{item.subscription_customer_name}</td>
-                <td>{item.subscription_customer_email}</td>
-                {/* <td>{formatDate(item.create_order_date)}</td> */}
-                <td>{item.create_order_date}</td>
-                <td>{item.subscription_order_id}</td>
-                {/* <td>{formatDate(item.Next_Shipment_Date)}</td> */}
-                <td>{item.Next_Shipment_Date}</td>
-                <td>{item.subscription_total_price}</td>
-                <td>{item.Status}</td>
-                <td>
-                  {item.Status === "Active" ? (
-                    <button
-                      className="delete__order"
-                      onClick={() => handleCancel(item.subscription_order_id)}
-                    >
-                      Cancel
-                    </button>
-                  ) : (
-                    <span>{item.Status}</span>
-                  )}
-                </td>
-                <td>
-                  <button
-                    className="view__order"
-                    onClick={() => {
-                      console.log("View button clicked"); // Add this line
-                      setShowOrderDetails(item);
-                    }}
-                  >
-                    <svg
-                      viewBox="0 0 20 20"
-                      class="Polaris-Icon__Svg"
-                      focusable="false"
-                      aria-hidden="true"
-                    >
-                      <path d="M17.928 9.628C17.836 9.399 15.611 4 9.999 4S2.162 9.399 2.07 9.628a1.017 1.017 0 0 0 0 .744C2.162 10.601 4.387 16 9.999 16s7.837-5.399 7.929-5.628a1.017 1.017 0 0 0 0-.744zM9.999 14a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-6A2 2 0 1 0 10 12.001 2 2 0 0 0 10 8z"></path>
-                    </svg>
-                  </button>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="9" className="text-center">
-                No results found.
-              </td>
-            </tr>
+          {!showOrderDetails && (
+            <Pagination
+              className="pagination-bar"
+              currentPage={currentPage}
+              totalCount={filteredData.length}
+              pageSize={PageSize}
+              onPageChange={(page) => setCurrentPage(page)}
+            />
           )}
         </>
-          )}
-        </tbody>
-      </table>
-      {showOrderDetails && (
-        <OrderDetails
-          orderData={showOrderDetails}
-          onClose={() => setShowOrderDetails(null)}
-        />
-      )}
-      {!showOrderDetails && (
-        <Pagination
-          className="pagination-bar"
-          currentPage={currentPage}
-          totalCount={filteredData.length}
-          pageSize={PageSize}
-          onPageChange={(page) => setCurrentPage(page)}
-        />
       )}
       <ToastContainer
-      position="top-right"
-      autoClose={5000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-      theme="dark"
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
       />
     </>
   );

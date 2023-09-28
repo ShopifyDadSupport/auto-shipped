@@ -18,6 +18,10 @@
     font-size: 13px;
     min-width: 32px;
   }
+  .order__details_top {
+    margin: 21px auto;
+    background: aliceblue;
+}
   .pagination-container .pagination-item.dots:hover {
     background-color: transparent;
     cursor: default;

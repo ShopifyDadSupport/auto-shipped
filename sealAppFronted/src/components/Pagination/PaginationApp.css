@@ -33,15 +33,17 @@ td {
 }
 
 .pagination-bar {
+    width: -moz-fit-content;
     width: fit-content;
     display: flex;
     justify-content: center;
-    position: absolute;
+    position: fixed;
     bottom: 0;
-    left: 50%;
+    left: 53%;
     transform: translateX(-50%);
     background: red;
     border-radius: 50px;
+    bottom: 40px;
 }
 .pagination {
     position: relative;
@@ -75,18 +77,18 @@ table.SubscriptionCancelOrder td {
 
 .tab-content>div {
     position: relative;
-    height: 72vh;
+    height: 88vh;
     overflow-x: auto;
 }
 .order-details {
     position: absolute;
-    top: -20px;
+    top: -22px;
     left: 50%;
     transform: translateX(-50%);
     background: white;
     color: black;
     width: 100%;
-    height: auto;
+    /* height: 51vh; */
 }
 .order__details_col svg.Polaris-Icon__Svg>path {
     color: black;
@@ -145,13 +147,17 @@ svg.Polaris-Icon__Svg {
     font-size: 1rem;
     font-weight: 600;
 }
+button.sc-jSMfEi.dBkgMq {
+    display: none;
+}
 .order__status {
     margin-top: 30px;
 }
 .order__details__row {
     max-width: 900px;
-    margin: 21px auto;
+    margin: 57px auto;
     background: aliceblue;
+    padding: 38px;
 }
 
 .Polaris-Stack__Item {

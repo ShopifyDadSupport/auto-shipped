@@ -21,20 +21,20 @@ export const SIDEBAR_DATA = [
   },
   {
     id: 3,
-    name: "Settings",
-    path: "Settings",
-    icon: <PagesIcon />,
-  },
-  {
-    id: 4,
     name: "AddInterval",
     path: "AddInterval",
     icon: <AddCircleIcon />,
   },
   {
-    id: 5,
+    id: 4,
     name: "AddPage",
     path: "AddPage",
     icon: <AddCircleIcon />,
+  },
+  {
+    id: 5,
+    name: "Settings",
+    path: "Settings",
+    icon: <PagesIcon />,
   }
 ];
