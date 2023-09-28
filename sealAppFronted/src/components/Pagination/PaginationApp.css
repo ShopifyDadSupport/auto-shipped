@@ -39,12 +39,14 @@ td {
 .pagination-bar {
     width: -moz-fit-content;
     width: fit-content;
+    position: absolute;
     display: flex;
-    justify-content: center;
-    bottom: 0;
+    justify-content: right;
+    bottom: -50px;
     background: maroon;
     border-radius: 50px;
     margin-top: 25px;
+    right: 0;
 }
 .pagination {
     position: relative;
