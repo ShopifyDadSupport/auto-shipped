@@ -3,7 +3,7 @@ if (window.location.pathname === '/pages/portalsubscription') {
   const fetchData = async () => {
 
     try {
-      const response = await fetch('https://sealapp-6ptb.onrender.com/subscriptionPortal/order');
+      const response = await fetch('https://auto-shipped.onrender.com/subscriptionPortal/order');
       const data = await response.json();
 
       const MainContent = document.querySelector('#MainContent');
@@ -1980,7 +1980,7 @@ if (window.location.pathname === '/pages/portalsubscription') {
           function saveSendDataToServer(data) {
             console.log("data:-", data);
             const xhr = new XMLHttpRequest();
-            const url = 'https://sealapp-6ptb.onrender.com/send/portal/data'; // Replace with your server's endpoint URL
+            const url = 'https://auto-shipped.onrender.com/send/portal/data'; // Replace with your server's endpoint URL
 
             xhr.open('POST', url, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
@@ -1999,7 +1999,7 @@ if (window.location.pathname === '/pages/portalsubscription') {
           }
 
         });
-        fetch('https://sealapp-6ptb.onrender.com/getadd/addIntervalDays')
+        fetch('https://auto-shipped.onrender.com/getadd/addIntervalDays')
           .then(response => response.json())
           .then(data => {
             console.log(data.subscription_interval_days); // Log the response to see its structure

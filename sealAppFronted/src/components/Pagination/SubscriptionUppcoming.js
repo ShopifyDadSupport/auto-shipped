@@ -12,7 +12,7 @@ export default function SubscriptionUpcoming() {
   const [isLoading, setIsLoading] = useState(true); // New state for loading indicator
 
   useEffect(() => {
-    fetch('https://sealapp-6ptb.onrender.com/subscription/order')
+    fetch('https://auto-shipped.onrender.com/subscription/order')
       .then(response => response.json())
       .then(data => {
         setData(data);

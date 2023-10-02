@@ -15,7 +15,7 @@ function TagsInput() {
         localStorage.setItem("tempStoreName", window.location.hostname);
 
         // Fetch data from the API
-        fetch('https://sealapp-6ptb.onrender.com/getadd/addIntervalDays')
+        fetch('https://auto-shipped.onrender.com/getadd/addIntervalDays')
             .then(response => response.json())
             .then(data => {
                 setData(data.subscription_interval_days)
@@ -53,7 +53,7 @@ function TagsInput() {
     const removeTag = (tag, index) => {
         console.log("Removing tag:", tag);
         // setTags(tag);
-        axios.post('https://sealapp-6ptb.onrender.com/remove/addIntervaldays',
+        axios.post('https://auto-shipped.onrender.com/remove/addIntervaldays',
             {
                 tag: tag,
                 url: currentURL
@@ -86,7 +86,7 @@ function TagsInput() {
         //     setTags([...tags, inputValue]);
         //     setInputValue('');
         // }
-        axios.post('https://sealapp-6ptb.onrender.com/add/addIntervalDays',
+        axios.post('https://auto-shipped.onrender.com/add/addIntervalDays',
             {
                 tag: inputValue,
                 url: currentURL

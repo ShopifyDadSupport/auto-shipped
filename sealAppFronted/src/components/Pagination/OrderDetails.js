@@ -24,7 +24,7 @@ export default function OrderDetails({ orderData, onClose }) {
     console.log("order id:",orderData.subscription_order_id);
     console.log(orderData.id)
     axios
-    .post(`https://sealapp-6ptb.onrender.com/subscriptionPortal/order/${subscription_order_id}`, {
+    .post(`https://auto-shipped.onrender.com/subscriptionPortal/order/${subscription_order_id}`, {
       subscription_order_id: subscription_order_id,
     })
     .then((response) => {
@@ -41,7 +41,7 @@ export default function OrderDetails({ orderData, onClose }) {
   function resendSubscription(){
     console.log("resendSubscription is working..............")
     axios
-    .post(`https://sealapp-6ptb.onrender.com/resendSubscriptionEmail/order/${subscription_order_id}`, {
+    .post(`https://auto-shipped.onrender.com/resendSubscriptionEmail/order/${subscription_order_id}`, {
       subscription_order_id: subscription_order_id,
       subscription_email_id:Subscription_email_id,
     })
