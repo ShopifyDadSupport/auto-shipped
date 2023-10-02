@@ -48,7 +48,7 @@ const Item = (props) => {
         )}
       </>
     );
-  } else if (page === "AddInterval") {
+  } else if (page === "Add Interval") {
     return (
       <div id="page">
         <div className="pagination">
@@ -66,7 +66,7 @@ const Item = (props) => {
         </div>
       </div>
     );
-  } else if (page === "Settings") {
+  } else if (page === "Integrate  Seal Subscription App") {
     return (
       <div id="page">
         <div className="pagination">
@@ -84,7 +84,7 @@ const Item = (props) => {
         </div>
       </div>
     );
-  } else if (page === "AddPage") {
+  } else if (page === "Add Page") {
     return (
       <div id="page">
         <div className="pagination">

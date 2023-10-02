@@ -21,19 +21,19 @@ export const SIDEBAR_DATA = [
   },
   {
     id: 3,
-    name: "AddInterval",
+    name: "Add Interval",
     path: "AddInterval",
     icon: <AddCircleIcon />,
   },
   {
     id: 4,
-    name: "AddPage",
+    name: "Add Page",
     path: "AddPage",
     icon: <AddCircleIcon />,
   },
   {
     id: 5,
-    name: "Settings",
+    name: "Integrate  Seal Subscription App",
     path: "Settings",
     icon: <PagesIcon />,
   }
