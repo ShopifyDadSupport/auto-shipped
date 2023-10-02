@@ -66,7 +66,7 @@ const Item = (props) => {
         </div>
       </div>
     );
-  } else if (page === "Integrate  Seal Subscription App") {
+  } else if (page === "Integrate  Auto Shipped") {
     return (
       <div id="page">
         <div className="pagination">
@@ -80,7 +80,8 @@ const Item = (props) => {
           >
             Settings
           </h1>
-          <SettingsMainTab />
+          {/* <SettingsMainTab /> */}
+          <h2> Auto Shipped</h2>
         </div>
       </div>
     );

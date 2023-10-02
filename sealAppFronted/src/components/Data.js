@@ -33,7 +33,7 @@ export const SIDEBAR_DATA = [
   },
   {
     id: 5,
-    name: "Integrate  Seal Subscription App",
+    name: "Integrate  Auto Shipped",
     path: "Settings",
     icon: <PagesIcon />,
   }
