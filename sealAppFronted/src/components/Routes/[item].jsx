@@ -25,7 +25,7 @@ const Item = (props) => {
           <div className="pagination">
             <h1
               style={{
-                fontSize: 40,
+                fontSize: 22,
                 padding: 10,
                 color: "#fff",
                 background: "#343a40",
@@ -54,13 +54,13 @@ const Item = (props) => {
         <div className="pagination">
           <h1
             style={{
-              fontSize: 40,
+              fontSize: 22,
               padding: 10,
               color: "#fff",
               background: "#343a40",
             }}
           >
-            AddInterval
+            Add Interval
           </h1>
           <AddIntervalDays />
         </div>
@@ -72,7 +72,7 @@ const Item = (props) => {
         <div className="pagination">
           <h1
             style={{
-              fontSize: 40,
+              fontSize: 22,
               padding: 10,
               color: "#fff",
               background: "#343a40",
@@ -81,7 +81,7 @@ const Item = (props) => {
             Settings
           </h1>
           {/* <SettingsMainTab /> */}
-          <h2> Auto Shipped</h2>
+          <h2 style={{fontSize:22,padding: 20}}> Auto Shipped</h2>
         </div>
       </div>
     );
@@ -91,7 +91,7 @@ const Item = (props) => {
         <div className="pagination">
           <h1
             style={{
-              fontSize: 40,
+              fontSize: 22,
               padding: 10,
               color: '#fff',
               backgroundColor: '#343a40',
