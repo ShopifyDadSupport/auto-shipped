@@ -1,7 +1,7 @@
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { DynamicItem, Sidebar, dummyData } from "./components";
 import "./App.css";
-
 function App() {
   return (
     <div id="main">

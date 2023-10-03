@@ -4,6 +4,7 @@ import {
   UserIcon,
   PagesIcon,
   AddCircleIcon,
+  LogoutIcon ,
 } from "./Icons";
 
 export const SIDEBAR_DATA = [

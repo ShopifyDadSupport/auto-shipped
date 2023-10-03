@@ -1601,6 +1601,27 @@ databaseData.getConnection((err, connection) => {
   //   console.log(response.body);
   // });
 
+  app.post('/userauth', (req, res) => {
+    const { username, password } = req.body;
+  
+    const query = 'SELECT * FROM users WHERE username = ? AND password = ?';
+  
+    connection.query(query, [username, password], (error, results, fields) => {
+      if (error) {
+        return res.status(500).json({ message: 'Internal server error' });
+      }
+  
+      if (results.length === 0) {
+        return res.status(401).json({ message: 'Invalid credentials' });
+      }
+  
+      const user = results[0];
+      const token = 'generate_your_token_here'; // You should generate a real token here
+  
+      return res.json({ token });
+    });
+  });
+
 app.listen(7709, () => {
   console.log("running on port 7707");
 });

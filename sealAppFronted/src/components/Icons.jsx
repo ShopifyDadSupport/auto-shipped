@@ -12,7 +12,7 @@ import InputOutlinedIcon from "@mui/icons-material/InputOutlined";
 import ArrowRightOutlinedIcon from "@mui/icons-material/ArrowRightOutlined";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-
+import LogoutIcon from '@mui/icons-material/Logout';
 export {
   HomeOutlinedIcon as HomeIcon,
   WebOutlinedIcon as LayoutIcon,
@@ -27,4 +27,5 @@ export {
   ArrowBackIcon,
   ArrowRightOutlinedIcon as ArrowIcon,
   AddCircleIcon as AddCircleIcon,
+  LogoutIcon as LogoutIcon
 };
