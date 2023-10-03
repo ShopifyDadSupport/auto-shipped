@@ -74,9 +74,9 @@ app.get("/shopify", (req, res) => {
 app.get("/shopify/callback", (req, res) => {
   const { shop, hmac, code, shopState } = req.query;
   const stateCookie = cookie.parse(req.headers.cookie).shopState;
-  if (shopState !== stateCookie) {
-    return res.status(400).send("request origin cannot be found");
-  }
+  // if (shopState !== stateCookie) {
+  //   return res.status(400).send("request origin cannot be found");
+  // }
   if (shop && hmac && code) {
     const Map = Object.assign({}, req.query);
     delete Map["hmac"];
