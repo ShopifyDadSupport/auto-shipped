@@ -5,7 +5,7 @@
     justify-content: space-between;
     color: #fff;
     background-color: #343a40;
-    padding: 0px 20px 30px;
+    padding: 0px 0px 30px;
     width: 100%;
 }
 
@@ -79,7 +79,7 @@ input[type="checkbox"] {
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid white;
-    padding-top: 25px;
+    padding: 25px 20px 0px;
 }
 .MainDashConetent {
     width: 100%;
