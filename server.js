@@ -39,7 +39,7 @@ const apisecret = SHOPIFY_API_SECRET;
 const scopes =
   "read_orders,write_orders,read_products,write_products,read_customers,write_customers,read_shipping,write_shipping ,read_themes,write_themes,read_checkouts,write_checkouts";
 
-const forwardingaddress = "https://sealapp-6ptb.onrender.com";
+const forwardingaddress = "https://auto-shipped.onrender.com";
 
 
 app.use(bodyParser.json({ limit: "10mb" }));
