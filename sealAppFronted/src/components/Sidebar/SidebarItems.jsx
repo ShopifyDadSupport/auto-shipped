@@ -18,7 +18,7 @@ const SidebarItems = ({ displaySidebar }) => {
   const  LogoutFun = () =>{
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("lastActivity");
-    navigate("/");
+    navigate("/login");
   }
   return (
     <>
@@ -39,7 +39,7 @@ const SidebarItems = ({ displaySidebar }) => {
           </Link>
         </ItemContainer>
       ))}
-  { (window.location.href === "https://auto-shipped.onrender.com/" || window.location.href === "https://auto-shipped.onrender.com/dashboards" || window.location.href === "https://auto-shipped.onrender.com/Subscriptions" || window.location.href === "https://auto-shipped.onrender.com/AddInterval"|| window.location.href === "https://auto-shipped.onrender.com/Settings"|| window.location.href === "https://auto-shipped.onrender.com/AddPage")&& (
+  { (window.location.href === "https://auto-shipped.onrender.com/" || window.location.href === "https://auto-shipped.onrender.com/dashboards" || window.location.href === "https://auto-shipped.onrender.com/Subscriptions" || window.location.href === "https://auto-shipped.onrender.com/AddInterval"|| window.location.href === "https://auto-shipped.onrender.com/Settings"|| window.location.href === "https://auto-shipped.onrender.com/AddPage") && (
    
   <li onClick={LogoutFun} class="sc-iBkjds ilfVKo">
     <a href="">

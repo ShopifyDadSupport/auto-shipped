@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function LoginPage({ setLoggedIn }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const handleLogin = () => {
     axios
       .post("https://auto-shipped.onrender.com/userauth", {
@@ -14,6 +15,7 @@ function LoginPage({ setLoggedIn }) {
       })
       .then((response) => {
         // Assuming response.data.token is the authentication token
+        navigate("/");
         toast.success("login successfully...", {
             position: "top-right",
             autoClose: 5000,
