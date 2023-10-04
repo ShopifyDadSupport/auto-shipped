@@ -40,7 +40,7 @@ const SidebarItems = ({ displaySidebar }) => {
           </Link>
         </ItemContainer>
       ))}
-    <li onClick={LogoutFun} class="sc-iBkjds ilfVKo"><a href=""><div class="sc-ftvSup hkXtBw"><LogoutIcon/><span class="sc-papXJ crzyBt">Logout</span></div></a></li>
+    <li onClick={LogoutFun} class="sc-iBkjds eOhtmE"><a href=""><div class="sc-ftvSup hkXtBw"><LogoutIcon/><span class="sc-papXJ crzyBt">Logout</span></div></a></li>
     </ItemsList>
     {/* <h1></h1> */}
     </>
