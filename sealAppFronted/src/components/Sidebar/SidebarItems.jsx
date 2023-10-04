@@ -14,7 +14,7 @@ import Logout from "@mui/icons-material/Logout";
 const SidebarItems = ({ displaySidebar }) => {
   const navigate = useNavigate();
   const [activeItem, setActiveItem] = useState(0);
-
+  console.log(window.location.href);
   const  LogoutFun = () =>{
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("lastActivity");
@@ -40,6 +40,7 @@ const SidebarItems = ({ displaySidebar }) => {
         </ItemContainer>
       ))}
   { (window.location.href === "https://auto-shipped.onrender.com/" || window.location.href === "https://auto-shipped.onrender.com/dashboards" || window.location.href === "https://auto-shipped.onrender.com/Subscriptions" || window.location.href === "https://auto-shipped.onrender.com/AddInterval"|| window.location.href === "https://auto-shipped.onrender.com/Settings"|| window.location.href === "https://auto-shipped.onrender.com/AddPage")&& (
+   
   <li onClick={LogoutFun} class="sc-iBkjds ilfVKo">
     <a href="">
       <div class="sc-ftvSup hkXtBw">
