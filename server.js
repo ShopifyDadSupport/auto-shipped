@@ -1603,8 +1603,9 @@ databaseData.getConnection((err, connection) => {
 
   app.post('/userauth', (req, res) => {
     const { username, password } = req.body;
-  
-    const query = 'SELECT * FROM users WHERE username = ? AND password = ?';
+    console.log("userName,password",username,password);
+    databaseData.getConnection((err, connection) => {
+    const query = 'SELECT * FROM userAuth WHERE user_name = ? AND user_pass = ?';
   
     connection.query(query, [username, password], (error, results, fields) => {
       if (error) {
@@ -1618,8 +1619,9 @@ databaseData.getConnection((err, connection) => {
       const user = results[0];
       const token = 'generate_your_token_here'; // You should generate a real token here
   
-      return res.json({ token });
+      res.status(200).json({token });
     });
+  });
   });
 
 app.listen(7709, () => {

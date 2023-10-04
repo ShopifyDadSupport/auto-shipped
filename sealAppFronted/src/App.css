@@ -133,3 +133,61 @@ ul.sidebar_content>li a {
 }
 
 /* Sidebar toggle button ends */
+
+
+.login_content {
+  text-align: center;
+  max-width: 400px;
+  margin: 0 auto;
+  /* background: black; */
+  width: 100%;
+  color: white;
+}
+.login {
+  background: black;
+  height: 100vh;
+  padding: 30px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+.login_content div{
+  margin-bottom: 10px;
+}
+.login_content div input {
+  z-index: 999;
+  background: #FFFFFF;
+  max-width: 476px;
+  width: 100%;
+  padding: 15px;
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.login_content div>label{
+  width: 100% !important;
+}.login_content div>label span{
+  display: block;
+  margin-bottom: 10px;
+}
+.login_content button {
+  margin-top: 30px;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border-radius: 50px;
+  border: 0;
+  padding: 17px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.login_content div>label span {
+  display: block;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
