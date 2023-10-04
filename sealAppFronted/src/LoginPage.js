@@ -15,7 +15,6 @@ function LoginPage({ setLoggedIn }) {
       })
       .then((response) => {
         // Assuming response.data.token is the authentication token
-        navigate("/");
         toast.success("login successfully...", {
             position: "top-right",
             autoClose: 5000,
