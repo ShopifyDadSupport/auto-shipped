@@ -8,7 +8,7 @@ function LoginPage({ setLoggedIn }) {
 
   const handleLogin = () => {
     axios
-      .post("http://localhost:7709/userauth", {
+      .post("https://auto-shipped.onrender.com/userauth", {
         username: username,
         password: password
       })

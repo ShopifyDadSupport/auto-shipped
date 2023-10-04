@@ -20,7 +20,6 @@ const SidebarItems = ({ displaySidebar }) => {
     localStorage.removeItem("lastActivity");
     navigate("/");
   }
-
   return (
     <>
     <ItemsList className="sidebar_content">
@@ -40,7 +39,16 @@ const SidebarItems = ({ displaySidebar }) => {
           </Link>
         </ItemContainer>
       ))}
-    <li onClick={LogoutFun} class="sc-iBkjds eOhtmE"><a href=""><div class="sc-ftvSup hkXtBw"><LogoutIcon/><span class="sc-papXJ crzyBt">Logout</span></div></a></li>
+  {window.location.href === "https://auto-shipped.onrender.com/" && (
+  <li onClick={LogoutFun} class="sc-iBkjds ilfVKo">
+    <a href="">
+      <div class="sc-ftvSup hkXtBw">
+        <LogoutIcon/><span class="sc-papXJ crzyBt">Logout</span>
+      </div>
+    </a>
+  </li>
+)}
+
     </ItemsList>
     {/* <h1></h1> */}
     </>

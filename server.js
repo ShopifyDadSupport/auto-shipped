@@ -1600,29 +1600,35 @@ databaseData.getConnection((err, connection) => {
   //   if (error) throw new Error(error);
   //   console.log(response.body);
   // });
-
   app.post('/userauth', (req, res) => {
     const { username, password } = req.body;
-    console.log("userName,password",username,password);
+    console.log("userName,password", username, password);
     databaseData.getConnection((err, connection) => {
-    const query = 'SELECT * FROM userAuth WHERE user_name = ? AND user_pass = ?';
-  
-    connection.query(query, [username, password], (error, results, fields) => {
-      if (error) {
-        return res.status(500).json({ message: 'Internal server error' });
+      if (err) {
+        return res.status(500).json({ message: 'Database connection error' });
       }
   
-      if (results.length === 0) {
-        return res.status(401).json({ message: 'Invalid credentials' });
-      }
+      const query = 'SELECT * FROM userAuth WHERE user_name = ? AND user_pass = ?';
   
-      const user = results[0];
-      const token = 'generate_your_token_here'; // You should generate a real token here
+      connection.query(query, [username, password], (error, results) => {
+        connection.release(); // Release the connection back to the pool
   
-      res.status(200).json({token });
+        if (error) {
+          return res.status(500).json({ message: 'Internal server error' });
+        }
+  
+        if (results.length === 0) {
+          return res.status(401).json({ message: 'Invalid credentials' });
+        }
+  
+        const user = results[0];
+        const token = 'generate_your_token_here'; // Replace with actual token generation logic
+  
+        res.status(200).json({ token });
+      });
     });
   });
-  });
+  
 
 app.listen(7709, () => {
   console.log("running on port 7707");
