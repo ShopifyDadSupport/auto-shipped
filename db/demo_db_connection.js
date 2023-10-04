@@ -45,9 +45,9 @@ function handleDisconnect() {
     pool = mysql.createPool({
         connectionLimit: 10,
         host: "sql8.freesqldatabase.com",
-        user: "sql8649549",
-        password: "k9GrEYZ8DR",
-        database: 'sql8649549',
+        user: "sql8651043",
+        password: "yRaZgK78W8",
+        database: 'sql8651043',
         waitForConnections: true,
         queueLimit: 0
     });

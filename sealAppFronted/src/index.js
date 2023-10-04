@@ -8,7 +8,7 @@ import LoginPage from "./LoginPage";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const shouldRenderLoginPage =
-  window.location.href === "https://auto-shipped.onrender.com/";
+  window.location.href === "http://localhost:3000/";
 
 const Main = () => {
   const [loggedIn, setLoggedIn] = useState(
