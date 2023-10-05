@@ -11,7 +11,7 @@ const Item = (props) => {
   // const [showTabs, setShowTabs] = useState(true);
   if (page === "homepage") {
     return <div id="page">{page}</div>;
-  } else if (page === "dashboards") {
+  } else if (page === "dashboard") {
     return (
       <div id="page">
         <Dashboard />

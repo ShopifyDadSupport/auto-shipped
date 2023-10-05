@@ -10,8 +10,8 @@ import {
 export const SIDEBAR_DATA = [
   {
     id: 1,
-    name: "dashboards",
-    path: "dashboards",
+    name: "dashboard",
+    path: "dashboard",
     icon: <HomeIcon />,
   },
   {
