@@ -7,7 +7,7 @@ function App() {
     <div id="main">
       <Sidebar>
         <Routes>
-          <Route path="/" element={<DynamicItem page="dashboards" />} />
+          {/* <Route path="/" element={<DynamicItem page="dashboards" />} /> */}
           {dummyData &&
             dummyData.map((item, index) => (
               <Route
