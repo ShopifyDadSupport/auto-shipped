@@ -548,6 +548,7 @@ app.post("/webhooks/orders/create", (req, res) => {
             if (reshipped_note_attributes_name == "Reshipped order") {
               console.log("this is Reshipped order data");
             } else {
+              
               databaseData.getConnection((err, connection) => {
                 if (err) {
                   console.error('Error connecting to MySQL:', err);
