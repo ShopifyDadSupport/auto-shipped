@@ -514,6 +514,7 @@ app.post("/webhooks/orders/create", (req, res) => {
           const propertyName = property.name;
           const propertyValue = property.value;
           const line_items_price = lineItem.price;
+          console.log("valueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",line_items_price)
           const numberOnly = parseInt(propertyValue.match(/\d+/)[0], 10);
           var timestamp = orderData.created_at;
           var OrderId = orderData.id;
