@@ -4,17 +4,18 @@ import axios from 'axios';
 import { Dna } from 'react-loader-spinner';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 function TagsInput() {
     const [tags, setTags] = useState([]);
     const [inputValue, setInputValue] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const [currentURL, setCurrentURL] = useState('');
     const [data, setData] = useState([]);
+
     useEffect(() => {
-        setCurrentURL(window.location.hostname); // Get the current URL when the component mounts
+        setCurrentURL(window.location.hostname);
         localStorage.setItem("tempStoreName", window.location.hostname);
 
-        // Fetch data from the API
         fetch('https://auto-shipped.onrender.com/getadd/addIntervalDays')
             .then(response => response.json())
             .then(data => {
@@ -33,6 +34,7 @@ function TagsInput() {
             addTag();
         }
     }
+
     const removeLastTag = () => {
         if (tags.length > 0) {
             const updatedTags = [...tags];
@@ -41,29 +43,18 @@ function TagsInput() {
         }
     };
 
-    // const removeTag = (index) => {
-    //     // console.log("Trying to remove tag at index:", index);
-
-    //     // const updatedTags = [...tags];
-    //     // updatedTags.splice(index, 1);
-    //     // setTags(updatedTags);
-
-    // };
-
     const removeTag = (tag, index) => {
-        console.log("Removing tag:", tag);
-        // setTags(tag);
-        axios.post('https://auto-shipped.onrender.com/remove/addIntervaldays',
-            {
+        axios.post('https://auto-shipped.onrender.com/remove/addIntervaldays', {
                 tag: tag,
                 url: currentURL
-            }) // Adjust the API endpoint as needed
+            })
             .then(response => {
                 console.log('Tag remove successfully:', response.data, currentURL);
                 const updatedTags = [...tags];
                 const removeUpdateData = updatedTags.splice(index, 1);
                 setTags(updatedTags);
-                toast.success('Delete successfully...', {
+                removeLastTag();
+                toast.success('Deleted successfully...', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -72,9 +63,8 @@ function TagsInput() {
                     draggable: true,
                     progress: undefined,
                     theme: "dark",
-                    });
+                });
                 console.log('Tag update successfully:', removeUpdateData);
-
             })
             .catch(error => {
                 console.error('Error adding tag:', error);
@@ -82,20 +72,8 @@ function TagsInput() {
     };
 
     const addTag = () => {
-        // if (inputValue.trim()) {
-        //     setTags([...tags, inputValue]);
-        //     setInputValue('');
-        // }
-        axios.post('https://auto-shipped.onrender.com/add/addIntervalDays',
-            {
-                tag: inputValue,
-                url: currentURL
-            }) // Adjust the API endpoint as needed
-            .then(response => {
-                console.log('Tag added successfully:', response.data, currentURL);
-                setTags([...tags, inputValue]);
-                setInputValue('');
-                toast.success('Add successfully...', {
+        if (!inputValue.trim()) {
+            toast.error('Please enter a value before adding.', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -104,15 +82,37 @@ function TagsInput() {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
+            });
+            return;
+        }
+
+        axios.post('https://auto-shipped.onrender.com/add/addIntervalDays', {
+                tag: inputValue,
+                url: currentURL
+            })
+            .then(response => {
+                console.log('Tag added successfully:', response.data, currentURL);
+                setTags([...tags, inputValue]);
+                setInputValue('');
+                toast.success('added successfully...', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
                 });
             })
             .catch(error => {
                 console.error('Error adding tag:', error);
             });
     };
-    const allTags = [...data, ...tags];
-    return (
 
+    const allTags = [...data, ...tags];
+
+    return (
         <>
             <div className='interval_days__content'>
                 <h2 className='interval__days'>Add Interval Days</h2>
@@ -123,12 +123,11 @@ function TagsInput() {
                         onKeyDown={handleKeyDown}
                         type="text"
                         className="tags-input"
-                        placeholder="Enter the inerval days...."
+                        placeholder="Enter the interval days...."
                     />
                     <button onClick={addTag} className="add-button">Add</button>
                 </div>
                 <div className="tags-input-container">
-
                     {isLoading && (
                         <Dna
                             visible={true}
@@ -149,9 +148,7 @@ function TagsInput() {
                             ))}
                         </>
                     )}
-
                 </div>
-
             </div>
             <ToastContainer
                 position="top-right"

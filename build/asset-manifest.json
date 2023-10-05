@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.e5245959.css",
-    "main.js": "/static/js/main.0ccb6bf9.js",
+    "main.js": "/static/js/main.ca2a4c57.js",
     "static/media/SealsubscriptionApp-03.png": "/static/media/SealsubscriptionApp-03.a4a51e5e47acc8eee12d.png",
     "static/media/SealsubscriptionApp-02.png": "/static/media/SealsubscriptionApp-02.01cbc0c19dbae9e6a2e0.png",
     "static/media/SealsubscriptionApp-05.png": "/static/media/SealsubscriptionApp-05.1728ae9a01366015cb60.png",
@@ -16,10 +16,10 @@
     "static/media/SealsubscriptionApp-12.png": "/static/media/SealsubscriptionApp-12.842215c2da74f1ea917e.png",
     "index.html": "/index.html",
     "main.e5245959.css.map": "/static/css/main.e5245959.css.map",
-    "main.0ccb6bf9.js.map": "/static/js/main.0ccb6bf9.js.map"
+    "main.ca2a4c57.js.map": "/static/js/main.ca2a4c57.js.map"
   },
   "entrypoints": [
     "static/css/main.e5245959.css",
-    "static/js/main.0ccb6bf9.js"
+    "static/js/main.ca2a4c57.js"
   ]
 }
