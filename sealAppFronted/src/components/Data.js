@@ -11,7 +11,7 @@ export const SIDEBAR_DATA = [
   {
     id: 1,
     name: "dashboard",
-    path: "dashboard",
+    path: "dashboards",
     icon: <HomeIcon />,
   },
   {

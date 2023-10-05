@@ -105,7 +105,7 @@ const Item = (props) => {
       </div>
     );
   } else {
-    return <div id="page">{page}</div>;
+    return <div id="page"><Dashboard /></div>;
   }
 };
 

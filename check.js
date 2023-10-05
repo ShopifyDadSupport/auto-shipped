@@ -60,7 +60,17 @@
 // console.log(firstValue); // Output: "#1024"
 // console.log(secondValue); // Output: "#1025"
 
-for (let i = 1; i <= 11; i++) {
-    let concatenatedValue = i + 1000;
-    console.log(i + ' to ' + concatenatedValue);
+// for (let i = 1; i <= 11; i++) {
+//     let concatenatedValue = i + 1000;
+//     console.log(i + ' to ' + concatenatedValue);
+// }
+
+const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+let fiftyCharToken = '';
+
+for (let i = 0; i < 50; i++) {
+  const randomIndex = Math.floor(Math.random() * characters.length);
+  fiftyCharToken += characters.charAt(randomIndex);
 }
+
+console.log(fiftyCharToken);

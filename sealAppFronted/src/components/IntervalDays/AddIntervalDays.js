@@ -76,7 +76,7 @@ function TagsInput() {
 
   const addTag = () => {
     if (!inputValue.trim()) {
-      toast.error("Please enter a value before adding.", {
+      toast.error("Please enter the interval days.", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

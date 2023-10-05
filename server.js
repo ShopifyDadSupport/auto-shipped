@@ -355,6 +355,7 @@ app.post("/scriptrender/toggle", async (req, res) => {
 app.post("/webhooks/orders/create", (req, res) => {
   console.log("working fine");
   var firstItemTitle, firstItemPrice, firstItemQuantity, firstItemSKU, firstVariantTitle, first_vendor, firstItemPropertyValue;
+
   try {
     const orderData = req.body;
     const lineItems = orderData.line_items;
@@ -549,6 +550,15 @@ app.post("/webhooks/orders/create", (req, res) => {
             if (reshipped_note_attributes_name == "Reshipped order") {
               console.log("this is Reshipped order data");
             } else {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let fiftyCharToken = '';
+            
+            for (let i = 0; i < 50; i++) {
+              const randomIndex = Math.floor(Math.random() * characters.length);
+              fiftyCharToken += characters.charAt(randomIndex);
+            }
+            
+            console.log(fiftyCharToken);
 
               databaseData.getConnection((err, connection) => {
                 if (err) {
@@ -575,8 +585,9 @@ app.post("/webhooks/orders/create", (req, res) => {
                     subscriptionshipping_shippingAddress_address1,
                     subscriptionshippingAddress_city,
                     subscriptionshippingAddress_zip,
-                    subscriptionshippingAddress_country
-                  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    subscriptionshippingAddress_country,
+                    portalToken
+                  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 `;
               
                 const status = "Active";
@@ -601,7 +612,8 @@ app.post("/webhooks/orders/create", (req, res) => {
                     shippingAddress_address1,
                     shippingAddress_city,
                     shippingAddress_zip,
-                    shippingAddress_country
+                    shippingAddress_country,
+                    fiftyCharToken
                   ],
                   (err, result) => {
                     connection.release(); // Release the connection when done
