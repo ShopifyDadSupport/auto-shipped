@@ -1,3 +1,4 @@
+
 function insertAfter(referenceNode, newNode) {
   referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   const selectElement = document.getElementById("intervalSelect");
@@ -367,7 +368,7 @@ span.choose__interval__days {
   </body>  
   </html>`;
 
-let div1 = document.querySelector(".product__description");
+let div1 = document.querySelector(".product__description_data");    
 insertAfter(div1, elem1);
 
 $(document).ready(function () {

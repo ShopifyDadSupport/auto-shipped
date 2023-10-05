@@ -116,7 +116,7 @@ export default function OrderDetails({ orderData, onClose }) {
                   </div>
                   <div class="Polaris-Stack__Item">
                     <span class="Polaris-TextStyle--variationStrong">
-                      Repeats every 30 days.
+                      Repeats every {orderData.subscription_interval_days}
                     </span>
                   </div>
                   <div class="Polaris-Stack__Item">
