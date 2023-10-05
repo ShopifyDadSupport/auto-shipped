@@ -382,6 +382,7 @@ $(document).ready(function () {
 
   $(".One_time_purchase").click(function () {
     $(".sls-option").attr("checked", false);
+    $(".choose__interval__days").hide();
     $(this).addClass("sls-active");
     $(this).find(".sls-option").attr("checked", true);
     $(".subscribe_30days").removeClass("sls-active");
@@ -391,6 +392,7 @@ $(document).ready(function () {
 
   $(".subscribe_30days").click(function () {
     var select_value = $(".check").val();
+    $(".choose__interval__days").show();
     console.log("select_valuenadjkahhgdhagd:", select_value);
     $(".sls-option").attr("checked", false);
     $(this).addClass("sls-active");
