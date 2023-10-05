@@ -44,6 +44,7 @@ function TagsInput() {
     };
 
     const removeTag = (tag, index) => {
+        
         axios.post('https://auto-shipped.onrender.com/remove/addIntervaldays', {
                 tag: tag,
                 url: currentURL
@@ -53,7 +54,6 @@ function TagsInput() {
                 const updatedTags = [...tags];
                 const removeUpdateData = updatedTags.splice(index, 1);
                 setTags(updatedTags);
-                removeLastTag();
                 toast.success('Deleted successfully...', {
                     position: "top-right",
                     autoClose: 5000,
@@ -65,6 +65,7 @@ function TagsInput() {
                     theme: "dark",
                 });
                 console.log('Tag update successfully:', removeUpdateData);
+                removeLastTag();
             })
             .catch(error => {
                 console.error('Error adding tag:', error);
