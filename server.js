@@ -513,6 +513,7 @@ app.post("/webhooks/orders/create", (req, res) => {
         lineItemProperties.forEach((property) => {
           const propertyName = property.name;
           const propertyValue = property.value;
+          const line_items_price = property.price;
           const numberOnly = parseInt(propertyValue.match(/\d+/)[0], 10);
           var timestamp = orderData.created_at;
           var OrderId = orderData.id;
@@ -592,7 +593,7 @@ app.post("/webhooks/orders/create", (req, res) => {
                     status,
                     firstItemTitle,
                     firstItemQuantity,
-                    firstItemPrice,
+                    line_items_price,
                     shippingAddress_first_name,
                     shippingAddress_last_name,
                     shippingAddress_address1,

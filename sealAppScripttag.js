@@ -375,6 +375,7 @@ $(document).ready(function () {
     var interval_days_value = $("select#intervalSelect").val();
     $(".choose__interval__days").html(`This text for ${interval_days_value}`);
     $(".number_0f_days").html(interval_days_value);
+    $("input.sls-hidden.sls-extension-added-attribute").attr("value",interval_days_value);
   }, 1000);
   $("#sls_option").attr("checked", true);
 
