@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { DynamicItem, Sidebar, dummyData } from "./components";
-
+import Dashboard from "./components/MainDash/MainDash";
 import "./App.css";
 function App() {
   return (
     <div id="main">
       <Sidebar>
         <Routes>
-          <Route path="/" element={<DynamicItem page={<Dashboard />}/>} />
+          <Route path="/" element={<DynamicItem page={Dashboard}/>} />
           {dummyData &&
             dummyData.map((item, index) => (
               <Route
