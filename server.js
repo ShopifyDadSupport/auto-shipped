@@ -513,7 +513,7 @@ app.post("/webhooks/orders/create", (req, res) => {
         lineItemProperties.forEach((property) => {
           const propertyName = property.name;
           const propertyValue = property.value;
-          const line_items_price = property.price;
+          const line_items_price = lineItem.price;
           const numberOnly = parseInt(propertyValue.match(/\d+/)[0], 10);
           var timestamp = orderData.created_at;
           var OrderId = orderData.id;
@@ -548,7 +548,7 @@ app.post("/webhooks/orders/create", (req, res) => {
             if (reshipped_note_attributes_name == "Reshipped order") {
               console.log("this is Reshipped order data");
             } else {
-              
+
               databaseData.getConnection((err, connection) => {
                 if (err) {
                   console.error('Error connecting to MySQL:', err);
