@@ -1267,9 +1267,9 @@ app.post('/remove/addIntervaldays', (req, res) => {
 })
 app.post("/subscriptionPortal/order/:orderId", (req, res) => {
   const orderId = req.params.orderId;
-  const subscription_order_id = req.body.subscription_order_id;
+  const subscriptionPortalToken = req.body.subscriptionPortalToken;
   const newData = {
-    orderIdvalue: subscription_order_id,
+    orderIdvalue: subscriptionPortalToken,
   };
 
   const dataFilePath = path.join(__dirname, 'storeOrderId.json');
@@ -1293,10 +1293,10 @@ app.get('/subscriptionPortal/order', (req, res) => {
       console.error('Error reading file:', err);
       res.status(500).send('Error reading file');
     } else {
-      const subscription_order_id = JSON.parse(data).orderIdvalue;
-      console.log("subscription order id :- ", subscription_order_id);
+      const subscriptionPortalToken = JSON.parse(data).orderIdvalue;
+      console.log("subscription order id :- ", subscriptionPortalToken);
       databaseData.getConnection((err, connection) => {
-        const query = `SELECT * FROM subscriptionorder WHERE subscription_order_id = '${subscription_order_id}'`;
+        const query = `SELECT * FROM subscriptionorder WHERE portalToken = '${subscriptionPortalToken}'`;
       
         databaseData.query(query, (error, results) => {
           connection.release(); // Release the connection when done
