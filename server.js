@@ -1566,7 +1566,7 @@ databaseData.getConnection((err, connection) => {
   app.post('/send/portal/data', (req, res) => {
     const receivedData = req.body
     const next_shippment_formattedDate =  receivedData.next_shippment_formattedDate;
-     //const portalToken = receivedData.subscription_order_id;//portalToken value only name changed
+     const portalToken = receivedData.subscription_order_id;//portalToken value only name changed
      console.log("receivedData",receivedData);
      const selecte_value = receivedData.selecte_value;
      const data_seal_quantity = receivedData.data_seal_quantity;
@@ -1579,7 +1579,7 @@ databaseData.getConnection((err, connection) => {
      const shopping_phone = receivedData.shopping_phone;
      const shipping_company = receivedData.shipping_company; 
      const  discount_code = receivedData.discount_code;
-    console.log('Received data:', subscription_order_id, selecte_value,data_seal_quantity,data_seal_email,shipping_first_name,shipping_last_name,shipping_address1,shipping_address2,shipping_zip,shopping_phone,shipping_company,discount_code);
+    console.log('Received data:', portalToken, selecte_value,data_seal_quantity,data_seal_email,shipping_first_name,shipping_last_name,shipping_address1,shipping_address2,shipping_zip,shopping_phone,shipping_company,discount_code);
     // Process the receivedData here as needed
     databaseData.getConnection((err, connection) => {
       if (err) {
