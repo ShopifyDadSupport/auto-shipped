@@ -1566,7 +1566,7 @@ databaseData.getConnection((err, connection) => {
   app.post('/send/portal/data', (req, res) => {
     const receivedData = req.body
     const next_shippment_formattedDate =  receivedData.next_shippment_formattedDate;
-     const subscription_order_id = receivedData.subscription_order_id;
+     const portalToken = receivedData.subscription_order_id;//portalToken value only name changed
      const selecte_value = receivedData.selecte_value;
      const data_seal_quantity = receivedData.data_seal_quantity;
      const data_seal_email = receivedData.data_seal_email;
@@ -1587,11 +1587,11 @@ databaseData.getConnection((err, connection) => {
       }
   
       const updateQuery =
-          "UPDATE subscriptionorder SET Next_Shipment_Date = ?, subscription_interval_days = ?, subscription_customer_email = ?, subscription_product_Quantity = ?, subscriptionshipping_address_first_name = ?, subscriptionshipping_shippingAddress_last_name = ?, subscriptionshipping_shippingAddress_address1 = ?, subscriptionshippingAddress_zip = ? WHERE subscription_order_id = ?";
+          "UPDATE subscriptionorder SET Next_Shipment_Date = ?, subscription_interval_days = ?, subscription_customer_email = ?, subscription_product_Quantity = ?, subscriptionshipping_address_first_name = ?, subscriptionshipping_shippingAddress_last_name = ?, subscriptionshipping_shippingAddress_address1 = ?, subscriptionshippingAddress_zip = ? WHERE portalToken = ?";
   
       connection.query(
           updateQuery,
-          [next_shippment_formattedDate, selecte_value, data_seal_email, data_seal_quantity, shipping_first_name, shipping_last_name, shipping_address1, shipping_zip, subscription_order_id],
+          [next_shippment_formattedDate, selecte_value, data_seal_email, data_seal_quantity, shipping_first_name, shipping_last_name, shipping_address1, shipping_zip, portalToken],
           (err, result) => {
               connection.release(); // Release the connection when done
   
@@ -1610,11 +1610,6 @@ databaseData.getConnection((err, connection) => {
   });
   
 });
-
-  // request(options, function (error, response) {
-  //   if (error) throw new Error(error);
-  //   console.log(response.body);
-  // });
   app.post('/userauth', (req, res) => {
     const { username, password } = req.body;
     console.log("userName,password", username, password);

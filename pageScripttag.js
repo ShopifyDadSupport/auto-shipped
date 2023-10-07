@@ -1962,7 +1962,7 @@ if (window.location.pathname === '/pages/portalsubscription') {
             console.log(next_shippment_formattedDate);
             var data_portal = {
               next_shippment_formattedDate:next_shippment_formattedDate,
-              subscription_order_id:entry.subscription_order_id,
+              subscription_order_id:entry.portalToken,
               selecte_value: selecte_value,
               data_seal_quantity: data_seal_quantity,
               data_seal_email: data_seal_email,
