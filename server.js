@@ -1566,7 +1566,8 @@ databaseData.getConnection((err, connection) => {
   app.post('/send/portal/data', (req, res) => {
     const receivedData = req.body
     const next_shippment_formattedDate =  receivedData.next_shippment_formattedDate;
-     const portalToken = receivedData.subscription_order_id;//portalToken value only name changed
+     //const portalToken = receivedData.subscription_order_id;//portalToken value only name changed
+     console.log("receivedData",receivedData);
      const selecte_value = receivedData.selecte_value;
      const data_seal_quantity = receivedData.data_seal_quantity;
      const data_seal_email = receivedData.data_seal_email;
