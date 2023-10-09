@@ -1612,7 +1612,7 @@ console.log("DATA VALUE ..................................KKKKKKKKKKKKKKKKKKKKKK
       // Send a response back to the client
       res.send('Data received successfully!');
   });
-  getupdateDetails();
+  getupdateDetails(portalToken);
 });
   app.post('/userauth', (req, res) => {
     const { username, password } = req.body;
@@ -1691,8 +1691,28 @@ console.log("DATA VALUE ..................................KKKKKKKKKKKKKKKKKKKKKK
     });
   });
 
-  function getupdateDetails(){
+  function getupdateDetails(portalToken){
     console.log("sdskjdsadnsdjkh")
+    app.get('/subscriptionPortal/orderdetails', (req, res) => {
+    
+          const subscriptionPortalToken = JSON.parse(data).orderIdvalue;
+          console.log("subscription order id :- ", subscriptionPortalToken);
+          databaseData.getConnection((err, connection) => {
+            const query = `SELECT * FROM subscriptionorder WHERE portalToken = '${subscriptionPortalToken}'`;
+          
+            databaseData.query(query, (error, results) => {
+              connection.release(); // Release the connection when done
+          
+              if (error) {
+                console.error('Error fetching data:', error);
+                res.status(500).send('Error fetching data');
+              } else {
+                res.json(results); // Send fetched data as JSON response
+              }
+            });
+          });
+    })
+
   }
 
 app.listen(7709, () => {
