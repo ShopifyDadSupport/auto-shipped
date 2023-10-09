@@ -1612,7 +1612,7 @@ console.log("DATA VALUE ..................................KKKKKKKKKKKKKKKKKKKKKK
       // Send a response back to the client
       res.send('Data received successfully!');
   });
-  
+  getupdateDetails();
 });
   app.post('/userauth', (req, res) => {
     const { username, password } = req.body;
@@ -1691,9 +1691,9 @@ console.log("DATA VALUE ..................................KKKKKKKKKKKKKKKKKKKKKK
     });
   });
 
-  // function test(){
-  //   console.log("sdskjdsadnsdjkh")
-  // }
+  function getupdateDetails(){
+    console.log("sdskjdsadnsdjkh")
+  }
 
 app.listen(7709, () => {
   console.log("running on port 7707");

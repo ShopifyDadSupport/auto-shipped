@@ -41,24 +41,24 @@ export default function OrderDetails({ orderData, onClose }) {
   }
   
   // console.log("itemnjhskjdjsdhushbdjkashdaghdbhasmgda..........",item.portalToken);
-  //   const handleRefreshClick = () => {
-  //     axios
-  //     .post(`http://localhost:7709/orderdetails`, {
-  //       portalToken: subscriptionPortalToken,
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
+    const handleRefreshClick = () => {
+      // axios
+      // .post(`http://localhost:7709/orderdetails`, {
+      //   portalToken: subscriptionPortalToken,
+      // })
+      // .then((response) => {
+      //   console.log(response);
   
-  //       // Assuming that the response contains the order ID
-  //       const orderID = response.data.orderID; // Adjust this based on the actual response
+      //   // Assuming that the response contains the order ID
+      //   const orderID = response.data.orderID; // Adjust this based on the actual response
   
-  //       // Navigate to the order details page
-  //       // navigation(`/order/${item.portalToken}`);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error sending data:", error);
-  //     });
-  // }
+      //   // Navigate to the order details page
+      //   // navigation(`/order/${item.portalToken}`);
+      // })
+      // .catch((error) => {
+      //   console.error("Error sending data:", error);
+      // });
+  }
 
   function resendSubscription(){
     console.log("resendSubscription is working..............")
