@@ -7,8 +7,10 @@ import OrderDetails from "./OrderDetails";
 import { Dna } from "react-loader-spinner";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link,useNavigate } from "react-router-dom";
 let PageSize = 8;
 export default function PaginationApp() {
+  const navigation = useNavigate();
   var concatenatedValue;
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
@@ -32,6 +34,27 @@ export default function PaginationApp() {
       });
   }, []);
 
+  const viewOrder = (item) => {
+    console.log("item", item);
+  
+    // axios
+    //   .post(`http://localhost:7709/order/${item.portalToken}`, {
+    //     portalToken: item.portalToken,
+    //   })
+    //   .then((response) => {
+    //     console.log(response);
+  
+    //     // Assuming that the response contains the order ID
+    //     const orderID = response.data.orderID; // Adjust this based on the actual response
+  
+    //     // Navigate to the order details page
+    //     navigation(`/order/${item.portalToken}`);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error sending data:", error);
+    //   });
+  };
+  
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
     setCurrentPage(1);
@@ -189,6 +212,7 @@ export default function PaginationApp() {
                             console.log("View button clicked"); // Add this line
                             setShowOrderDetails(item);
                             setActive(false);
+                            viewOrder(item);
                           }}
                         >
                           <svg

@@ -108,20 +108,38 @@ table.SubscriptionCancelOrder td {
 }
 .order__details_col {
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
     align-items: center;
     padding: 20px 25px;
     background: transparent !important;
 }
-.order__details_col>svg {
+.order__details_col .order__details_col_content>svg {
     height: 30px;
     color: white;
     cursor: pointer;
 }
-.order__details_col >h2 {
+.order__details_col .order__details_col_content >h2 {
     font-size: 24px;
     margin: 0;
     margin-left: 15px;
+}
+.order__details_col>span {
+    display: block;
+    font-size: 16px;
+    border: 1px solid aqua;
+    background: green;
+    color: white;
+    padding: 2px 10px;
+    border-radius: 50px;
+    line-height: 31px;
+    cursor: pointer;
+}
+.order__details_col_content {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 20px 0px;
+    background: transparent !important;
 }
 span.order__number {
     display: inline;

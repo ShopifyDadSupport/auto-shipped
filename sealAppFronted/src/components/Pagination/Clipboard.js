@@ -2,13 +2,13 @@ import React, { useState, useRef } from 'react'
 import copy from "copy-to-clipboard";
 import { Heading, Input1, Input2, Container, Button } from './Styles'
 
-const Clipboard = ({ Copyportal, SubscriptionOrderId }) => {
+const Clipboard = ({ Copyportal, SubscriptionOrderId,SubscriptionPortalToken }) => {
 	//  alert("data:-",subscription_order_id);
 
 	console.log("copyportal::::::::", Copyportal, SubscriptionOrderId)
 	const [copyText, setCopyText] = useState('');
 	const inputRef = useRef(null);
-	const portalCustomerUrl = `https://genucel105.myshopify.com/pages/portalsubscription?${SubscriptionOrderId}`
+	const portalCustomerUrl = `https://genucel105.myshopify.com/pages/portalsubscription?${SubscriptionPortalToken}`
 	const handleCopyText = (e) => {
 		setCopyText(e.target.value);
 	}

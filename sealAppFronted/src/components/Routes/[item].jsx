@@ -4,6 +4,7 @@ import Tabs from "../SubscriptionTabs/SubscriptionComponent";
 import AddIntervalDays from "../IntervalDays/AddIntervalDays";
 import SettingsMainTab from "../Settings/SettingsMainTab";
 import OrderDetails from "../Pagination/OrderDetails";
+import OrderDetailsData from "../Pagination/OrderDetailsData"
 import ShopifyCreatePage from "../ShopifyPage/ShopifyCreatePage";
 const Item = (props) => {
   const { page } = props;
@@ -104,6 +105,23 @@ const Item = (props) => {
         </div>
       </div>
     );
+  // }  else if ("OrderDetails" === "OrderDetails") {
+  //   return (
+  //     <div id="page">
+  //       <div className="pagination">
+  //         <h1
+  //           style={{
+  //             fontSize: 22,
+  //             padding: 10,
+  //             color: '#fff',
+  //             backgroundColor: '#343a40',
+  //           }}
+  //         >
+  //        </h1>
+  //         <OrderDetails />
+  //       </div>
+  //     </div>
+  //   );
   } else {
     return <div id="page"><Dashboard /></div>;
   }

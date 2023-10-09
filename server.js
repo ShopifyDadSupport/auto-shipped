@@ -13,6 +13,9 @@ const dotenv = require("dotenv");
 var cron = require("node-cron");
 const fs = require("fs");
 const storeOrderId = './storeOrderId';
+const storeOrderId1 = './refreshgetod'
+// const storeOrderId1 = './refreshgetod.json';
+
 // const path = require('path');
 // const multer = require('multer');
 var cors = require("cors");
@@ -1564,10 +1567,11 @@ databaseData.getConnection((err, connection) => {
 //   // };
 // });
   app.post('/send/portal/data', (req, res) => {
+console.log("DATA VALUE ..................................KKKKKKKKKKKKKKKKKKKKKKPPPPPPPPPPPPPPPPPPPPPPPPPPP")
     const receivedData = req.body
     const next_shippment_formattedDate =  receivedData.next_shippment_formattedDate;
      const portalToken = receivedData.subscription_order_id;//portalToken value only name changed
-     console.log("receivedData",receivedData);
+    //  console.log("receivedData",receivedData);
      const selecte_value = receivedData.selecte_value;
      const data_seal_quantity = receivedData.data_seal_quantity;
      const data_seal_email = receivedData.data_seal_email;
@@ -1579,7 +1583,7 @@ databaseData.getConnection((err, connection) => {
      const shopping_phone = receivedData.shopping_phone;
      const shipping_company = receivedData.shipping_company; 
      const  discount_code = receivedData.discount_code;
-    console.log('Received data:', portalToken, selecte_value,data_seal_quantity,data_seal_email,shipping_first_name,shipping_last_name,shipping_address1,shipping_address2,shipping_zip,shopping_phone,shipping_company,discount_code);
+    // console.log('Received data:', portalToken, selecte_value,data_seal_quantity,data_seal_email,shipping_first_name,shipping_last_name,shipping_address1,shipping_address2,shipping_zip,shopping_phone,shipping_company,discount_code);
     // Process the receivedData here as needed
     databaseData.getConnection((err, connection) => {
       if (err) {
@@ -1605,7 +1609,6 @@ databaseData.getConnection((err, connection) => {
               console.log("Affected rows:", result.affectedRows);
           }
       );
-      
       // Send a response back to the client
       res.send('Data received successfully!');
   });
@@ -1640,6 +1643,57 @@ databaseData.getConnection((err, connection) => {
     });
   });
   
+  app.post('/order/:subscription_order_id', (req, res) => {
+    const orderId = req.params.portalToken;
+  const portalToken = req.body.portalToken;
+  const newData = {
+    orderIdvalue: portalToken,
+  };
+
+  const dataFilePath = path.join(__dirname, 'storeOrderId.json');
+
+  fs.writeFile(dataFilePath, JSON.stringify(newData, null, 2), (err) => {
+    if (err) {
+      console.error("Error writing file:", err);
+      res.status(500).send("Error writing data");
+    } else {
+      console.log("Data saved successfully");
+      res.status(200).send("Data saved successfully");
+    }
+  });
+
+    // res.json({ receivedParams: { urlParam: subscription_order_id, requestBodyParam: requestBodyID } });
+  });
+  app.get('/order', (req, res) => {
+    fs.readFile('storeOrderId.json', 'utf8', (err, data) => {
+      if (err) {
+        console.error('Error reading file:', err);
+        res.status(500).send('Error reading file');
+      } else {
+        const subscriptionPortalToken = JSON.parse(data).orderIdvalue;
+        console.log("subscription order id :- ", subscriptionPortalToken);
+        databaseData.getConnection((err, connection) => {
+          const query = `SELECT * FROM subscriptionorder WHERE portalToken = '${subscriptionPortalToken}'`;
+        
+          databaseData.query(query, (error, results) => {
+            connection.release(); // Release the connection when done
+        
+            if (error) {
+              console.error('Error fetching data:', error);
+              res.status(500).send('Error fetching data');
+            } else {
+              res.json(results); // Send fetched data as JSON response
+            }
+          });
+        });
+        
+      }
+    });
+  });
+
+  // function test(){
+  //   console.log("sdskjdsadnsdjkh")
+  // }
 
 app.listen(7709, () => {
   console.log("running on port 7707");

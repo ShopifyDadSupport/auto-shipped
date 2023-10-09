@@ -3,14 +3,15 @@ import {React,useState} from "react";
 import axios from "axios";
 import Clipboard from "./Clipboard";
 import { ToastContainer, toast } from 'react-toastify';
+import { useRefresh } from '../RefreshOrderDetails';
 import 'react-toastify/dist/ReactToastify.css';
 export default function OrderDetails({ orderData, onClose }) {
-  
- var dynamicSubscriptionOrderUrl = `https://admin.shopify.com/store/genucel105/orders/${orderData.subscription_order_id}`;
  var SubscriptionOrderId = orderData.subscription_order_id;
  var subscriptionPortalToken = orderData.portalToken;
   const subscription_order_id = orderData.subscription_order_id;
   const Subscription_email_id = orderData.subscription_customer_email;
+ var dynamicSubscriptionOrderUrl = `https://admin.shopify.com/store/genucel105/orders/${subscription_order_id}`;
+//  const { toggleRefresh } = useRefresh();
   function Copyportal() { // Copy the selected text to clipboard
     toast.success('copy successfully...', {
       position: "top-center",
@@ -39,6 +40,26 @@ export default function OrderDetails({ orderData, onClose }) {
     .catch((error) => console.error("Error deleting data:", error));
   }
   
+  // console.log("itemnjhskjdjsdhushbdjkashdaghdbhasmgda..........",item.portalToken);
+    const handleRefreshClick = () => {
+      axios
+      .post(`http://localhost:7709/orderdetails`, {
+        portalToken: subscriptionPortalToken,
+      })
+      .then((response) => {
+        console.log(response);
+  
+        // Assuming that the response contains the order ID
+        const orderID = response.data.orderID; // Adjust this based on the actual response
+  
+        // Navigate to the order details page
+        // navigation(`/order/${item.portalToken}`);
+      })
+      .catch((error) => {
+        console.error("Error sending data:", error);
+      });
+  }
+
   function resendSubscription(){
     console.log("resendSubscription is working..............")
     axios
@@ -60,6 +81,7 @@ export default function OrderDetails({ orderData, onClose }) {
         <div className="order__details_top">
           <div className="order__details__row">
             <div className="order__details_col">
+              <div className="order__details_col_content">
               <svg
                 onClick={onClose}
                 viewBox="0 0 20 20"
@@ -75,6 +97,8 @@ export default function OrderDetails({ orderData, onClose }) {
                   {orderData.subscription_order_name}
                 </span>
               </h2>
+              </div>
+              <span onClick={handleRefreshClick}>Refresh</span>
             </div>
 
             <div className="order__view__section">
@@ -188,7 +212,7 @@ export default function OrderDetails({ orderData, onClose }) {
                                 onChange={({target:{value}}) => setTextareaValue(value)}
                                 />  
                             </form> */}
-                           <Clipboard Copyportal={Copyportal} SubscriptionOrderId={orderData.subscription_order_id} />
+                           <Clipboard Copyportal={Copyportal} SubscriptionOrderId={orderData.subscription_order_id}SubscriptionPortalToken = {orderData.portalToken} />
                           </div>
                         </div>
                       </div>

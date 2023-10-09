@@ -37,5 +37,11 @@ export const SIDEBAR_DATA = [
     name: "Integrate  Auto Shipped",
     path: "Settings",
     icon: <PagesIcon />,
-  }
+  },
+  // {
+  //   id: 6,
+  //   name: "Order Details",
+  //   path: "orderdetails",
+  //   icon: <PagesIcon />,
+  // }
 ];
