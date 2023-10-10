@@ -63,7 +63,7 @@ export default function PaginationApp() {
     setSearchTerm(event.target.value);
     setCurrentPage(1);
   };
-  const handleCancel = (orderId) => {
+  const handleCancel = (subscriptionPortalToken) => {
     // Get the current date and time
     const dateObject = new Date();
     const numberOfDaysToAdd = 0; // Adjust this if you want to add a specific number of days
@@ -86,13 +86,13 @@ export default function PaginationApp() {
 
     // Send a DELETE request to your backend API using Axios
     axios
-      .post(`https://auto-shipped.onrender.com/subscription/order/${orderId}`, {
+      .post(`https://auto-shipped.onrender.com/subscription/order/${subscriptionPortalToken}`, {
         cancellationDateTime: date_with_time,
       })
       .then((response) => {
         // Remove the item from the data in state
         const updatedData = data.filter(
-          (item) => item.subscription_order_id !== orderId
+          (item) => item.portalToken !== subscriptionPortalToken
         );
         setData(updatedData);
         setShowCancelMessage(response.data.message);
@@ -110,7 +110,7 @@ export default function PaginationApp() {
       })
       .then((response) => {
         const updatedData = data.filter(
-          (item) => item.subscription_order_id !== orderId
+          (item) => item.portalToken !== subscriptionPortalToken
         );
         setData(updatedData);
         setShowCancelMessage(response.data.message);
@@ -215,7 +215,7 @@ export default function PaginationApp() {
                           <button
                             className="delete__order"
                             onClick={() =>
-                              handleCancel(item.subscription_order_id)
+                              handleCancel(item.portalToken)
                             }
                           >
                             Cancel

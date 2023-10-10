@@ -1099,14 +1099,14 @@ app.get("/subscription/order", (req, res) => {
   
 });
 
-app.post("/subscription/order/:orderId", (req, res) => {
-  const orderId = req.params.orderId;
+app.post("/subscription/order/:subscriptionPortalToken", (req, res) => {
+  const subscriptionPortalToken = req.params.subscriptionPortalToken;
   const cancellationDateTime = req.body.cancellationDateTime;
   const status = "Cancelled";
   databaseData.getConnection((err, connection) => {     
-    const updateQuery = "UPDATE subscriptionorder SET Status = ?, subscription_cancel_date = ? WHERE subscription_order_id = ?";
+    const updateQuery = "UPDATE subscriptionorder SET Status = ?, subscription_cancel_date = ? WHERE portalToken = ?";
     
-    databaseData.query(updateQuery, [status, cancellationDateTime, orderId], (err, result) => {
+    databaseData.query(updateQuery, [status, cancellationDateTime, subscriptionPortalToken], (err, result) => {
       connection.release(); // Release the connection when done
   
       if (err) {
