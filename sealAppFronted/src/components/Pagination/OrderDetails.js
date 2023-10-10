@@ -54,7 +54,7 @@ if (data && data.length > 0 && data[0].subscription_interval_days) {
     try {
       const response = await axios.get('https://auto-shipped.onrender.com/subscriptionPortal/orderdetails');
   
-      console.log(response.data[0].subscription_interval_days);
+      // console.log(response.data[0].subscription_interval_days);
       // updateData.push(response.data[0].subscription_interval_days);
       // Assuming that the response contains the order ID
       const orderID = response.data.orderID; // Adjust this based on the actual response
@@ -164,9 +164,9 @@ if (data && data.length > 0 && data[0].subscription_interval_days) {
                     <span class="Polaris-TextStyle--variationStrong">
                     {/* Repeats every  {orderData.subscription_interval_days} */}
                       Repeats every {data ? (
-                      <span>{data}</span>
+                      <span class="1">{data}</span>
                       ) : (
-                      <span>{orderData.subscription_interval_days}</span>
+                      <span class="2">{orderData.subscription_interval_days}</span>
                       )}
                     </span>
                   </div>

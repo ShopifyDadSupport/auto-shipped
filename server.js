@@ -1691,11 +1691,11 @@ console.log("DATA VALUE ..................................KKKKKKKKKKKKKKKKKKKKKK
     });
   });
 
-  function getupdateDetails(portalToken){
-    console.log("sdskjdsadnsdjkh",portalToken)
+  function getupdateDetails(portalTokenValue){
+    console.log("sdskjdsadnsdjkh",portalTokenValue)
     app.get('/subscriptionPortal/orderdetails', (req, res) => {
     
-          const subscriptionPortalToken = portalToken;
+          const subscriptionPortalToken = portalTokenValue;
           console.log("subscription order id :- ", subscriptionPortalToken);
           databaseData.getConnection((err, connection) => {
             const query = `SELECT * FROM subscriptionorder WHERE portalToken = '${subscriptionPortalToken}'`;
