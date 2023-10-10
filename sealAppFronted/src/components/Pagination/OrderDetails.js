@@ -5,11 +5,12 @@ import Clipboard from "./Clipboard";
 import { ToastContainer, toast } from 'react-toastify';
 import { useRefresh } from '../RefreshOrderDetails';
 import 'react-toastify/dist/ReactToastify.css';
-export default function OrderDetails({ orderData, onClose }) {
+export default function OrderDetails({ orderData, onClose, onChildButtonClick  }) {
  var SubscriptionOrderId = orderData.subscription_order_id;
  var subscriptionPortalToken = orderData.portalToken;
   const subscription_order_id = orderData.subscription_order_id;
   const Subscription_email_id = orderData.subscription_customer_email;
+  const [data, setData] = useState(null);
  var dynamicSubscriptionOrderUrl = `https://admin.shopify.com/store/genucel105/orders/${subscription_order_id}`;
 //  const { toggleRefresh } = useRefresh();
   function Copyportal() { // Copy the selected text to clipboard
@@ -41,24 +42,21 @@ export default function OrderDetails({ orderData, onClose }) {
   }
   
   // console.log("itemnjhskjdjsdhushbdjkashdaghdbhasmgda..........",item.portalToken);
-    const handleRefreshClick = () => {
-      // axios
-      // .post(`http://localhost:7709/orderdetails`, {
-      //   portalToken: subscriptionPortalToken,
-      // })
-      // .then((response) => {
-      //   console.log(response);
+  const handleRefreshClick = async () => {
+    try {
+      const response = await axios.get('https://auto-shipped.onrender.com/subscriptionPortal/orderdetails');
   
-      //   // Assuming that the response contains the order ID
-      //   const orderID = response.data.orderID; // Adjust this based on the actual response
+      console.log(response.data[0].subscription_interval_days);
   
-      //   // Navigate to the order details page
-      //   // navigation(`/order/${item.portalToken}`);
-      // })
-      // .catch((error) => {
-      //   console.error("Error sending data:", error);
-      // });
-  }
+      // Assuming that the response contains the order ID
+      const orderID = response.data.orderID; // Adjust this based on the actual response
+      // setData(response.data.data); 
+      // Navigate to the order details page
+      // navigation(`/order/${item.portalToken}`);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   function resendSubscription(){
     console.log("resendSubscription is working..............")
@@ -75,6 +73,7 @@ export default function OrderDetails({ orderData, onClose }) {
   }
 
   return (
+    
     <>
     <div className="order-details">
       <div className="order_details_container">
@@ -98,7 +97,7 @@ export default function OrderDetails({ orderData, onClose }) {
                 </span>
               </h2>
               </div>
-              <span onClick={handleRefreshClick}>Refresh</span>
+              <span onClick={() => onChildButtonClick()}>Refresh</span>
             </div>
 
             <div className="order__view__section">

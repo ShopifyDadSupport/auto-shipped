@@ -19,7 +19,9 @@ export default function PaginationApp() {
   const [showOrderDetails, setShowOrderDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [active, setActive] = useState(true);
+  const [refresh, setRefresh] = useState(false);
 
+  
   useEffect(() => {
     // Fetch data from the API
     fetch("https://auto-shipped.onrender.com/subscription/order")
@@ -32,8 +34,12 @@ export default function PaginationApp() {
         setIsLoading(false);
         console.error("Error fetching data:", error);
       });
-  }, []);
-
+  }, [refresh]);
+  const handleChildButtonClick = () => {
+    setRefresh(prevState => !prevState);
+    console.log("refresh parents component....")
+    // showOrderDetails();
+  };
   const viewOrder = (item) => {
     console.log("item", item);
   
@@ -253,7 +259,7 @@ export default function PaginationApp() {
           {/* {showOrderDetails && ( */}
             <OrderDetails
               orderData={showOrderDetails}
-
+              onChildButtonClick={handleChildButtonClick}
               onClose={() => {
                 setShowOrderDetails(null)
                 setActive(true);
