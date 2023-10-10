@@ -10,7 +10,15 @@ export default function OrderDetails({ orderData, onClose, onChildButtonClick  }
  var subscriptionPortalToken = orderData.portalToken;
   const subscription_order_id = orderData.subscription_order_id;
   const Subscription_email_id = orderData.subscription_customer_email;
-  const [data, setData] = useState(null);
+  const [data, setData] = useState();
+let subscriptionIntervalDays = "";
+
+if (data && data.length > 0 && data[0].subscription_interval_days) {
+  subscriptionIntervalDays = data[0].subscription_interval_days;
+}
+// var updateData = [];
+
+  
  var dynamicSubscriptionOrderUrl = `https://admin.shopify.com/store/genucel105/orders/${subscription_order_id}`;
 //  const { toggleRefresh } = useRefresh();
   function Copyportal() { // Copy the selected text to clipboard
@@ -47,15 +55,26 @@ export default function OrderDetails({ orderData, onClose, onChildButtonClick  }
       const response = await axios.get('https://auto-shipped.onrender.com/subscriptionPortal/orderdetails');
   
       console.log(response.data[0].subscription_interval_days);
-  
+      // updateData.push(response.data[0].subscription_interval_days);
       // Assuming that the response contains the order ID
       const orderID = response.data.orderID; // Adjust this based on the actual response
-      // setData(response.data.data); 
+      setData(response.data[0].subscription_interval_days); 
       // Navigate to the order details page
       // navigation(`/order/${item.portalToken}`);
+      toast.success("Refresh...", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     } catch (error) {
       console.error('Error fetching data:', error);
     }
+    console.log("aJHnXjhxjxnbzhasbsnbhschbs ",data)
   };
 
   function resendSubscription(){
@@ -97,7 +116,10 @@ export default function OrderDetails({ orderData, onClose, onChildButtonClick  }
                 </span>
               </h2>
               </div>
-              <span onClick={() => onChildButtonClick()}>Refresh</span>
+              <span onClick={() => {
+                //  onChildButtonClick()
+                 handleRefreshClick()
+                 } } >Refresh</span>
             </div>
 
             <div className="order__view__section">
@@ -140,7 +162,12 @@ export default function OrderDetails({ orderData, onClose, onChildButtonClick  }
                   </div>
                   <div class="Polaris-Stack__Item">
                     <span class="Polaris-TextStyle--variationStrong">
-                      Repeats every {orderData.subscription_interval_days}
+                    {/* Repeats every  {orderData.subscription_interval_days} */}
+                      Repeats every {data ? (
+                      <span>{data}</span>
+                      ) : (
+                      <span>{orderData.subscription_interval_days}</span>
+                      )}
                     </span>
                   </div>
                   <div class="Polaris-Stack__Item">

@@ -21,6 +21,7 @@ export default function PaginationApp() {
   const [active, setActive] = useState(true);
   const [refresh, setRefresh] = useState(false);
 
+  const [updateportal,setUpdateportal] = useState();
   
   useEffect(() => {
     // Fetch data from the API
@@ -35,11 +36,8 @@ export default function PaginationApp() {
         console.error("Error fetching data:", error);
       });
   }, [refresh]);
-  const handleChildButtonClick = () => {
-    setRefresh(prevState => !prevState);
-    console.log("refresh parents component....")
-    // showOrderDetails();
-  };
+
+
   const viewOrder = (item) => {
     console.log("item", item);
   
@@ -143,6 +141,21 @@ export default function PaginationApp() {
     return filteredData.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, filteredData]);
 
+  const handleChildButtonClick = () => {
+    setRefresh(prevState => !prevState);
+    console.log("refresh parents component....11",currentTableData);
+    // return (
+    //     <OrderDetails
+    //         orderData={showOrderDetails}
+    //         onChildButtonClick={handleChildButtonClick}
+    //         onClose={() => {
+    //             setShowOrderDetails(null)
+    //             setActive(true);
+    //         }}
+    //     />
+    // );
+     console.log("dlasjdslkdn,sjdkasjdnsksjhn",data)
+};
   return (
     <>
       <div className="search-container">
@@ -184,7 +197,7 @@ export default function PaginationApp() {
               <>
                 {currentTableData.length > 0 ? (
                   currentTableData.map((item) => (
-                    
+                  
                     <tr key={item.id}>
                       
                       <td>#{ concatenatedValue = item.id + 1000}</td>
