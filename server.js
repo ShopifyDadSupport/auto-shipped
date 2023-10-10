@@ -1692,10 +1692,10 @@ console.log("DATA VALUE ..................................KKKKKKKKKKKKKKKKKKKKKK
   });
 
   function getupdateDetails(portalToken){
-    console.log("sdskjdsadnsdjkh")
+    console.log("sdskjdsadnsdjkh",portalToken)
     app.get('/subscriptionPortal/orderdetails', (req, res) => {
     
-          const subscriptionPortalToken = JSON.parse(data).orderIdvalue;
+          const subscriptionPortalToken = portalToken;
           console.log("subscription order id :- ", subscriptionPortalToken);
           databaseData.getConnection((err, connection) => {
             const query = `SELECT * FROM subscriptionorder WHERE portalToken = '${subscriptionPortalToken}'`;
