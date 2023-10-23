@@ -1,3 +1,4 @@
+const dbModule = require('../dbModule');
 // var mysql = require('mysql'); 
 // var conn = mysql.createConnection({
 //     host:"sql8.freesqldatabase.com",
@@ -12,15 +13,16 @@ var mysql = require('mysql');
 var pool = mysql.createPool({
     connectionLimit: 10, // Adjust this as needed
     host: "sql8.freesqldatabase.com",
-    user: "sql8652574",
-    password: "Lmf7CHBclQ",
-    database: 'sql8652574',
+    user: "sql8654366",
+    password: "dH3WC7AVW2",
+    database: 'sql8654366',
     waitForConnections: true,
     queueLimit: 0
 });
 
 pool.on('connection', (connection) => {
     console.log('MySQL Pool connected');
+//   dbModule.fetchDataFromDatabase(connection);
 });
 
 pool.on('acquire', (connection) => {
@@ -29,6 +31,8 @@ pool.on('acquire', (connection) => {
 
 pool.on('release', (connection) => {
     console.log('MySQL Pool connection released');
+    // dbModule.fetchDataFromDatabase(connection);
+
 });
 
 pool.on('error', (err) => {
@@ -45,14 +49,15 @@ function handleDisconnect() {
     pool = mysql.createPool({
         connectionLimit: 10,
         host: "sql8.freesqldatabase.com",
-        user: "sql8652574",
-        password: "Lmf7CHBclQ",
-        database: 'sql8652574',
+        user: "sql8654366",
+        password: "dH3WC7AVW2",
+        database: 'sql8654366',
         waitForConnections: true,
         queueLimit: 0
     });
 
     console.log('Reconnected to MySQL');
+    dbModule.fetchDataFromDatabase(connection);
 }
 
 module.exports = pool;
